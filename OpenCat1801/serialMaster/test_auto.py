@@ -247,7 +247,10 @@ if __name__ == '__main__':
         time.sleep(2);
         #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
         for x in range(2):
-            send(goodPorts,['kwkF',2],)
+            ['g',0],# turn off the gyroscope
+            ['z',0], # turn off the random behavior
+            send(goodPorts,['kwkF',4],)
+            send(goodPorts,['kwkF',4],)
             send(goodPorts,['kwkR',4],)
             send(goodPorts,['kwkL',4],)
             send(goodPorts,['kbk',4],)
