@@ -246,20 +246,17 @@ if __name__ == '__main__':
 #        if len(goodPorts)>0:
         time.sleep(2);
         #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
-        for x in range(2):
-            # turn off the gyroscope
-             # turn off the random behavior
-            send(goodPorts,['g',0],)
-            send(goodPorts,['z',0],)
+        for x in range(4):    
+            send(goodPorts,['g',0],)# switch gyroscope
+            send(goodPorts,['z',0],)# switch random behavior
             send(goodPorts,['kwkF',4],)
             send(goodPorts,['kwkR',4],)
             send(goodPorts,['kwkL',4],)
             send(goodPorts,['kbk',4],)
-        
         #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
-        for task in testSchedule:  # execute the tasks in the testSchedule
-            print(task)
-            send(goodPorts, task)
+        #for task in testSchedule:  # execute the tasks in the testSchedule
+        #    print(task)
+        #    send(goodPorts, task)
         
 #        schedulerToSkill(goodPorts, testSchedule) # compile the motion related instructions to a skill and send it to the robot. the last skill sent over in this way can be recalled by the 'T' token even after the robot reboots.
         closeAllSerial(goodPorts)
