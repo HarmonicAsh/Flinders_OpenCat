@@ -151,12 +151,14 @@ if __name__ == '__main__':
         parallel = False
 #        if len(goodPorts)>0:
         time.sleep(2);
-        #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
         send(goodPorts,['g',0],)# switch gyroscope
-        #send(goodPorts,['z',0],)# switch random behavior
-        send(goodPorts,['kwkF', 4],)
-        time.sleep(3)
+        send(goodPorts,['kwkF'4],)
+
+        #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
         for x in range(0):    
+            
+            #send(goodPorts,['z',0],)# switch random behavior
+            
             #send(goodPorts,['kwkR',2],)
             #send(goodPorts,['kwkL',2],)
             #send(goodPorts,['kbk',2],)
