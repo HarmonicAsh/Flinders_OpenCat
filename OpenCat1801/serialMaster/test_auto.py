@@ -139,42 +139,12 @@ if __name__ == '__main__':
         testSchedule is used to test various serial port commands
         '''
         testSchedule = [
-                        
-            # turn off the gyroscope
-            ['g',0],
-            
-            # turn off the random behavior
-            ['z',0],
-            
-            # - 'kbalance' indicates the command to control Bittle to stand normally
-            # - 1 indicates the postponed time after finishing the command, in seconds
-            # - the skill data is stored locally on the robot
-            
+            ['g',0],# turn off the gyroscope
+            ['z',0], # turn off the random behavior
             ['kbalance', 1],
-
-            # - m indicates the command to control the rotation of the joint servo
-            # - 0 indicates the index number of joint servo
-            # - -50 indicates the rotation angle (this angle refers to the origin, rather than additive) the unit is degree
-            # - 0.5 indicates the postponed time after finishing the command, in seconds. It can be a float number.
+            ['m', ['m', '1', '45', '1', '-45', '1', '45', '1', '-45' '1', '45', '1', '-45' '1', '0'], 2] #Yes
+            ['m', ['m', '0', '45', '0', '-45', '0', '45', '0', '-45' '0', '45', '0', '-45' '0', '0'], 2] #No
             ['m', [0, -50], 0.5],
-
-            # Using this format, multiple joint servo rotation commands can be sent at one time,
-            # and these joint servo rotation commands are executed SEQUENTIALLY,
-            # not at the same time.
-            # The meaning of this example is: the joint servo with index number 0 is first
-            # rotated to the 45 degree position, and then rotated to the -45 degree position, and so on.
-            # After these motion commands are completed, the next command will
-            # be executed after a 2-second delay.
-            ['m', [8, -5, 8, 10, 8, -5, 8, 10, 8, -5, 8, 10], 1],
-
-            # Using this format, multiple joint servo rotation commands can be issued at one time,
-            # and these joint servo rotation commands are executed AT THE SAME TIME.
-            # The meaning of this example is: the joint servos with index numbers 8, 9 are
-            # rotated to the -15, -20 degree position at the same time.
-            # After these motion commands are completed, the next command will
-            # be executed after a 2-second delay.
-            ['i', [8, -15, 9, -20], 1],
-
             # - d indicates the command to put the robot down and shut down the servos
             # - 2 indicates the postponed time after finishing the command, in seconds
             ['d', 1],
