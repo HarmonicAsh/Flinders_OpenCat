@@ -152,13 +152,13 @@ if __name__ == '__main__':
 #        if len(goodPorts)>0:
         time.sleep(2);
         #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
-        for x in range(1):    
+        for x in range(0):    
             send(goodPorts,['g',0],)# switch gyroscope
             #send(goodPorts,['z',0],)# switch random behavior
-            send(goodPorts,['kwkF'2],)
-            send(goodPorts,['kwkR',2],)
-            send(goodPorts,['kwkL',2],)
-            send(goodPorts,['kbk',2],)
+            send(goodPorts,['kwkF'4],)
+            #send(goodPorts,['kwkR',2],)
+            #send(goodPorts,['kwkL',2],)
+            #send(goodPorts,['kbk',2],)
         closeAllSerial(goodPorts)
         logger.info("finish!")
         os._exit(0)
