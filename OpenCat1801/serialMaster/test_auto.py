@@ -142,8 +142,8 @@ if __name__ == '__main__':
             ['g',0],# turn off the gyroscope
             ['z',0], # turn off the random behavior
             ['kbalance', 1],
-            ['m', ['m', '1', '45', '1', '-45', '1', '45', '1', '-45', '1', '45', '1', '-45' '1', '0'], 2] #Yes
-            ['m', ['m', '0', '45', '0', '-45', '0', '45', '0', '-45', '0', '45', '0', '-45' '0', '0'], 2] #No
+            ['m', ['m', '1', '45', '1', '-45', '1', '45', '1', '-45', '1', '45', '1', '-45', '1', '0'], 2] #Yes
+            ['m', ['m', '0', '45', '0', '-45', '0', '45', '0', '-45', '0', '45', '0', '-45', '0', '0'], 2] #No
             ['m', [0, -50], 0.5],
             # - d indicates the command to put the robot down and shut down the servos
             # - 2 indicates the postponed time after finishing the command, in seconds
