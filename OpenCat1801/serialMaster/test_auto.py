@@ -150,9 +150,8 @@ if __name__ == '__main__':
         testSchedule = [
             ['g',0],# turn off the gyroscope
             ['z',0], # turn off the random behavior
-            ['knod',1], #attempt to nod
-            ['kbalance', 1],
-
+            ['kbalance', 5],
+            ['knod',10], #attempt to nod
             ['m', ['m', '1', '30', '1', '-30', '1', '30', '1', '-30', '1', '30', '1', '-30', '1', '0'], 2], #Yes
 
             ['m', ['m', '0', '45', '1', '-10', '0', '0', '1', '0', '0', '-45', '1', '-10', '0', '0'], 2], #No
