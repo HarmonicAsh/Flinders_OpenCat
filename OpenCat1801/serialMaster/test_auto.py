@@ -247,14 +247,10 @@ if __name__ == '__main__':
         time.sleep(2);
         #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
         for x in range(2):
-            print(['kwkF',1],)
-            send(goodPorts,['kwkF',1],)
-            print(['kwkR',1],)
-            send(goodPorts,['kwkR',1],)
-            print(['kwkL',1],)
-            send(goodPorts,['kwkL',1],)
-            print(['kbk',3],)
-            send(goodPorts,['kbk',3],)
+            send(goodPorts,['kwkF',2],)
+            send(goodPorts,['kwkR',4],)
+            send(goodPorts,['kwkL',4],)
+            send(goodPorts,['kbk',4],)
         
         #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
         for task in testSchedule:  # execute the tasks in the testSchedule
