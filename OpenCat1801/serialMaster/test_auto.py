@@ -152,7 +152,8 @@ if __name__ == '__main__':
 #        if len(goodPorts)>0:
         time.sleep(2);
         send(goodPorts,['g',0],)# switch gyroscope
-        send(goodPorts,['kwkF'4],)
+        send(goodPorts,['kwkF',4],)
+        time.sleep(2);
 
         #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
         for x in range(0):    
