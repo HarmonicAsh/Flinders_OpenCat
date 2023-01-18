@@ -245,8 +245,18 @@ if __name__ == '__main__':
         parallel = False
 #        if len(goodPorts)>0:
         time.sleep(2);
-        send(goodPorts, ['kbalance', 5],)
-        send(goodPorts, ['ksit', 5],)
+        #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
+        for x in range(10):
+            print(['kwkF',3],)
+            send(goodPorts,['kwkF',3],)
+            print(['kwkF',3],)
+            send(goodPorts,['kwkF',3],)
+            print(['kwkF',3],)
+            send(goodPorts,['kwkF',3],)
+            print(['kbk',5],)
+            send(goodPorts,['kwkF',5],)
+        
+        #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
         for task in testSchedule:  # execute the tasks in the testSchedule
             print(task)
             send(goodPorts, task)
