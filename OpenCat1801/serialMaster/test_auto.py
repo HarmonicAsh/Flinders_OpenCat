@@ -151,7 +151,6 @@ if __name__ == '__main__':
             ['g',0],# turn off the gyroscope
             ['z',0], # turn off the random behavior
             ['kbalance', 5],
-            ['knod',10], #attempt to nod
             ['m', ['m', '1', '30', '1', '-30', '1', '30', '1', '-30', '1', '30', '1', '-30', '1', '0'], 2], #Yes
 
             ['m', ['m', '0', '45', '1', '-10', '0', '0', '1', '0', '0', '-45', '1', '-10', '0', '0'], 2], #No
@@ -246,9 +245,14 @@ if __name__ == '__main__':
         parallel = False
 #        if len(goodPorts)>0:
         time.sleep(2);
-        for task in testSchedule:  # execute the tasks in the testSchedule
-            print(task)
-            send(goodPorts, task)
+        send(goodPorts, ksit)
+        delay(1)
+        send(goodPorts, kbalance)
+        delay(2)
+        send(goodPorts, ksit)
+        #for task in testSchedule:  # execute the tasks in the testSchedule
+        #    print(task)
+        #    send(goodPorts, task)
         
 #        schedulerToSkill(goodPorts, testSchedule) # compile the motion related instructions to a skill and send it to the robot. the last skill sent over in this way can be recalled by the 'T' token even after the robot reboots.
         closeAllSerial(goodPorts)
