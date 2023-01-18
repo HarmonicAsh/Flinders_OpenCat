@@ -155,7 +155,7 @@ if __name__ == '__main__':
         send(goodPorts,['g',0],)# switch gyroscope
         #send(goodPorts,['z',0],)# switch random behavior
         send(goodPorts,['kwkF', 4],)
-        sleep(3)
+        time.sleep(3)
         for x in range(0):    
             #send(goodPorts,['kwkR',2],)
             #send(goodPorts,['kwkL',2],)
