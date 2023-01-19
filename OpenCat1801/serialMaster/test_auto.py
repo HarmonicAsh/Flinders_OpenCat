@@ -4,22 +4,7 @@
 import sys
 sys.path.append("..")
 from ardSerial import *
-#from SR04 import *
-
-# the following skill arrays are identical to those in InstinctBittle.h
-
-model = 'Nibble'
-postureTable = postureDict[model]
-
-E_RGB_ALL = 0
-E_RGB_RIGHT = 1
-E_RGB_LEFT = 2
-
-E_EFFECT_BREATHING = 0
-E_EFFECT_ROTATE = 1
-E_EFFECT_FLASH = 2
-E_EFFECT_NONE = 3
-
+from SR04 import *
 
 if __name__ == '__main__':
     try:
@@ -34,6 +19,7 @@ if __name__ == '__main__':
 #        if len(goodPorts)>0:
         time.sleep(2);
         #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
+        print(distance())
         send(goodPorts,['g',0],)# switch gyroscope
         send(goodPorts,['z',0],)# switch random behavior
         send(goodPorts,['kwkF',4],)   

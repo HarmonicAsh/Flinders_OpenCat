@@ -12,28 +12,7 @@ GPIO_ECHO = 24
  
 #set GPIO direction (IN / OUT)
 GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
-GPIO.setup(GPIO_ECHO, GPIO.IN)
-
-def direction():
-    if dist <= 15:
-        print("I am too close to something...")
-        send(goodPorts,['ksit',1],)  #Sit when an object appears too close
-        send(goodPorts,[['m', ['m', '0', '0', '1', '10'], 2],0) #Look straight ahead
-        dist_ahead = dist
-        sleep(0.25)
-        send(goodPorts,[['m', ['m', '0', '-45', '1', '0'], 2],0) #Look left
-        dist_left = dist
-        sleep(0.25)
-        send(goodPorts,[['m', ['m', '0', '45', '1', '0'], 2],0) #Look right
-        dist_right = dist
-        if dist_left < dist_right:
-            send(goodPorts,['kbk',1],)  #Back up and face the right
-        elif dist_left > dist_right:
-            send(goodPorts,['kbk',1],)  #Back up and face the left
-
-
-
-        
+GPIO.setup(GPIO_ECHO, GPIO.IN)     
  
 def distance():
     # set Trigger to HIGH
@@ -73,3 +52,6 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         print("Measurement stopped by User")
         GPIO.cleanup()
+
+        
+   
