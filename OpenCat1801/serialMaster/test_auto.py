@@ -148,7 +148,7 @@ def direction():
         dist_right = dist
         choose_direction()
        
-def choose_direction()
+def choose_direction():
      if dist_left < dist_right:
             send(goodPorts,['kbkL',2],)  #Back up and face the right
             send(goodPorts,['kbalance',10],)  #Stand for a while
