@@ -7,15 +7,6 @@ from ardSerial import *
 from SR04 import *
 
 # the following skill arrays are identical to those in InstinctBittle.h
-nod = [
-  -4,   0,   0,   1,
-   1,   2,   3,
-  10, -20, -60,   0,  -5,  -5,  20,  20,  30,  30, -90, -90,  60,  60,  45,  45,   8,   0,   0,   0,
-  10,  -4, -60,   0,  -5,  -5,  20,  20,  30,  30, -90, -90,  60,  60,  45,  45,   8,   0,   0,   0,
-  10, -42, -60,   0,  -5,  -5,  20,  20,  30,  30, -90, -90,  60,  60,  45,  45,   8,   0,   0,   0,
-  10, -20, -60,   0,  -5,  -5,  20,  20,  30,  30, -90, -90,  60,  60,  45,  45,   8,   0,   0,   0,
-]
-
 sit = [
 1, 0, -30, 1,
     0,   0, -45,   0,  -5,  -5,  20,  20,  45,  45, 105, 105,  45,  45, -45, -45]
@@ -147,13 +138,13 @@ def direction():
     if dist <= 15:
         print("I am too close to something...")
         send(goodPorts,['ksit',1],)  #Sit when an object appears too close
-        send(goodPorts,[['m', ['m', '0', '0', '1', '10'], 1],0) #Look straight ahead
+        send(goodPorts,['m', ['m', '0', '0', '1', '10'], 1],0) #Look straight ahead
         dist_ahead = dist
         sleep(0.25)
-        send(goodPorts,[['m', ['m', '0', '-45', '1', '0'], 1],0) #Look left
+        send(goodPorts,['m', ['m', '0', '-45', '1', '0'], 1],0) #Look left
         dist_left = dist
         sleep(0.25)
-        send(goodPorts,[['m', ['m', '0', '45', '1', '0'], 2],0) #Look right
+        send(goodPorts,['m', ['m', '0', '45', '1', '0'], 2],0) #Look right
         dist_right = dist
         choose_direction()
        
