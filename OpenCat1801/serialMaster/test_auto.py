@@ -20,6 +20,7 @@ if __name__ == '__main__':
         time.sleep(2);
         #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
         print(distance())
+        direction()
         send(goodPorts,['g',0],)# switch gyroscope
         send(goodPorts,['z',0],)# switch random behavior
         send(goodPorts,['kwkF',4],)   

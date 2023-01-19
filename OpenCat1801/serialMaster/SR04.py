@@ -41,7 +41,7 @@ def distance():
  
     return distance
  
- def direction():
+def direction():
     dist = distance()
     if dist <= 100:
         print("I am too close to something...")
@@ -59,7 +59,7 @@ def distance():
             send(goodPorts,['kbalance',10],)  #Stand for a while
         elif dist_left > dist_right:
             send(goodPorts,['kbkR',2],)  #Back up and face the left
-             send(goodPorts,['kbalance',10],)  #Stand for a while
+            send(goodPorts,['kbalance',10],)  #Stand for a while
         else:
             send(goodPorts,['kbalance',2],)  #Back up
             send(goodPorts,['krest',10],)  #Rest, let's not be defeated by this
