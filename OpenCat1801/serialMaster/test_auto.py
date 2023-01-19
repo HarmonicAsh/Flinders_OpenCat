@@ -4,7 +4,7 @@
 import sys
 sys.path.append("..")
 from ardSerial import *
-#from SR04 import *
+from SR04 import *
 
 # the following skill arrays are identical to those in InstinctBittle.h
 sit = [
@@ -148,20 +148,10 @@ if __name__ == '__main__':
 #        if len(goodPorts)>0:
         time.sleep(2);
         #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
-        for x in range(4):    
-            dist = distance()
-            print(dist)
-            send(goodPorts,['g',0],)# switch gyroscope
-            send(goodPorts,['z',0],)# switch random behavior
-            send(goodPorts,['kwkF',4],)
-            send(goodPorts,['kwkR',4],)
-            send(goodPorts,['kwkL',4],)
-            send(goodPorts,['kbk',4],)
-        
-        #for task in testSchedule:  # execute the tasks in the testSchedule
-        #    print(task)
-        #    send(goodPorts, task)
-        
+        send(goodPorts,['g',0],)# switch gyroscope
+        send(goodPorts,['z',0],)# switch random behavior
+        send(goodPorts,['kwkF',4],)   
+        send(goodPorts,['ksit',4],) 
 #        schedulerToSkill(goodPorts, testSchedule) # compile the motion related instructions to a skill and send it to the robot. the last skill sent over in this way can be recalled by the 'T' token even after the robot reboots.
         closeAllSerial(goodPorts)
         logger.info("finish!")
