@@ -13,7 +13,8 @@ def direction():
         send(goodPorts,['ksit',1],)  #Sit when an object appears too close
 
 
-        send(goodPorts,['M', ['M', '0', '0', '1', '10'], 1],) #Look straight ahead
+        send(goodPorts,['M', ['M', '0', '0', '1', '0'], 1],) #Look straight ahead
+        print("Straight ahead: ", dist, " cm")
         sleep(0.25)
         send(goodPorts,['M', ['M', '0', '-45', '1', '0'], 1],) #Look left
         dist_left = dist
