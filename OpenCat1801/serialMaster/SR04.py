@@ -47,17 +47,17 @@ def direction():
         print("I am too close to something...")
         send(goodPorts,['ksit',1],)  #Sit when an object appears too close
         send(goodPorts,['m', ['0', '0', '1', '10'], 1],) #Look straight ahead
-        dist_ahead = dist
         sleep(0.25)
         send(goodPorts,['m', ['0', '-45', '1', '0'], 1],) #Look left
         dist_left = dist
         sleep(0.25)
         send(goodPorts,['m', ['0', '45', '1', '0'], 2],) #Look right
         dist_right = dist
+        print("Time to find a way around this obstruction...")
         if dist_left < dist_right:
             send(goodPorts,['kbkL',2],)  #Back up and face the right
             send(goodPorts,['kbalance',10],)  #Stand for a while
-        elif dist_left > dist_right:
+        if dist_left > dist_right:
             send(goodPorts,['kbkR',2],)  #Back up and face the left
             send(goodPorts,['kbalance',10],)  #Stand for a while
         else:
