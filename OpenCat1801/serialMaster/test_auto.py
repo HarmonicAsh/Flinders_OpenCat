@@ -4,6 +4,8 @@
 import sys
 sys.path.append("..")
 from ardSerial import *
+from SR04 import *
+
 # the following skill arrays are identical to those in InstinctBittle.h
 nod = [
   -4,   0,   0,   1,
@@ -141,9 +143,37 @@ E_EFFECT_ROTATE = 1
 E_EFFECT_FLASH = 2
 E_EFFECT_NONE = 3
 
+def direction():
+    if dist <= 15:
+        print("I am too close to something...")
+        send(goodPorts,['ksit',1],)  #Sit when an object appears too close
+        send(goodPorts,[['m', ['m', '0', '0', '1', '10'], 1],0) #Look straight ahead
+        dist_ahead = dist
+        sleep(0.25)
+        send(goodPorts,[['m', ['m', '0', '-45', '1', '0'], 1],0) #Look left
+        dist_left = dist
+        sleep(0.25)
+        send(goodPorts,[['m', ['m', '0', '45', '1', '0'], 2],0) #Look right
+        dist_right = dist
+        choose_direction()
+       
+def choose_direction()
+     if dist_left < dist_right:
+            send(goodPorts,['kbkL',2],)  #Back up and face the right
+            send(goodPorts,['kbalance',10],)  #Stand for a while
+        elif dist_left > dist_right:
+            send(goodPorts,['kbkR',2],)  #Back up and face the left
+             send(goodPorts,['kbalance',10],)  #Stand for a while
+        else:
+            send(goodPorts,['kbalance',2],)  #Back up
+            send(goodPorts,['krest',10],)  #Rest, let's not be defeated by this
+
 
 if __name__ == '__main__':
     try:
+        '''
+        testSchedule is used to test various serial port commands
+        '''
         goodPorts = {}
         connectPort(goodPorts)
         t=threading.Thread(target = keepCheckingPort, args = (goodPorts,))
@@ -151,18 +181,22 @@ if __name__ == '__main__':
         parallel = False
 #        if len(goodPorts)>0:
         time.sleep(2);
-        send(goodPorts,['g',0],)# switch gyroscope
-        send(goodPorts,['kwkF',4],)
-        time.sleep(2);
-
         #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
-        for x in range(0):    
-            
-            #send(goodPorts,['z',0],)# switch random behavior
-            
-            #send(goodPorts,['kwkR',2],)
-            #send(goodPorts,['kwkL',2],)
-            #send(goodPorts,['kbk',2],)
+        for x in range(4):    
+            dist = distance()
+            print(dist)
+            send(goodPorts,['g',0],)# switch gyroscope
+            send(goodPorts,['z',0],)# switch random behavior
+            send(goodPorts,['kwkF',4],)
+            send(goodPorts,['kwkR',4],)
+            send(goodPorts,['kwkL',4],)
+            send(goodPorts,['kbk',4],)
+        
+        #for task in testSchedule:  # execute the tasks in the testSchedule
+        #    print(task)
+        #    send(goodPorts, task)
+        
+#        schedulerToSkill(goodPorts, testSchedule) # compile the motion related instructions to a skill and send it to the robot. the last skill sent over in this way can be recalled by the 'T' token even after the robot reboots.
         closeAllSerial(goodPorts)
         logger.info("finish!")
         os._exit(0)
