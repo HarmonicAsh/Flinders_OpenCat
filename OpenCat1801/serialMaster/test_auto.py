@@ -13,19 +13,29 @@ def direction():
         send(goodPorts,['ksit',1],)  
         
         #Look straight ahead and measure the distance to the obstruction
+        send(goodPorts,['m', [0, -50], 0.5],)
+        print("m 0 tested")
+        send(goodPorts, ['m', [0, -5, 0, 10, 1, -5, 0, 10, 0, -5, 1, 10], 1],)
+        print("m 0 and 1 tested, sequence")
+        send(goodPorts, ['M', ['M', '8', '-15', '9', '-20'], 2],)
+        print("M 8 and 9 simultaneous tested")
+)
+
         send(goodPorts,['M', ['M', '0', '0', '1', '0'], 1],) #Look straight ahead
         print("Straight ahead: ", dist, " cm")
-        time.sleep(0.25)
+        time.sleep(0.5)
 
         #Look left and measure the distance to the obstruction
         send(goodPorts,['M', ['M', '0', '-45', '1', '0'], 1],) #Look left
-        time.sleep(0.25)
+        time.sleep(0.5)
         dist_left = dist
+        print("Distance left: ", dist, " cm")
         
         #Look right and measure the distance to the obstruction
         send(goodPorts,['M', ['M', '0', '45', '1', '0'], 2],) 
-        time.sleep(0.25)
+        time.sleep(0.5)
         dist_right = dist
+        print("Distance right: ", dist, " cm")
 
         #Choose which way to face
         print("Time to find a way around this obstruction...")
@@ -33,12 +43,15 @@ def direction():
         #When Nybble should deviate left
         if dist_left < dist_right:      
             send(goodPorts,['kbkL',2],)  
-            send(goodPorts,['kbalance',10],)  
+            send(goodPorts,['kbalance',1],)
+            send(goodPorts,['kwkF',10],)
+            
         
         #When Nybble should deviate right
         if dist_left > dist_right:      
             send(goodPorts,['kbkR',2],) 
-            send(goodPorts,['kbalance',10],)  
+            send(goodPorts,['kbalance',1],)
+            send(goodPorts,['kwkF',10],)
 
         #If the same reading is recorded (in case of error, should not be possible)
         else:
@@ -76,32 +89,35 @@ if __name__ == '__main__':
         #if len(goodPorts)>0:
         time.sleep(1);
         #send(goodPorts,['p',0],)# pause and shut off servos
-        #send(goodPorts,['g',0],)# switch gyroscope on (begins off?)
-        send(goodPorts,['d',0],)# rest and shut off servos
-        print("Welcome to the Flinders OpenCat project. Enter a command to begin!") 
+        #send(goodPorts,['g',0],)# switch gyroscope on (begins off)
+        send(goodPorts,['d',0],) # rest position and shuts off all servos
+        print("\n \n Welcome to the Flinders OpenCat project. Enter a command to begin!") 
+        print("------------------------------------------------------------------")
         print("'go'' to commence automated motion") 
         print("'dist' to check ultrasonic sensor value") 
         print("'serial' to use Petoi commands directly as a serial input") 
         print("'quit' to terminate...") 
         
-        #Carry out motions and allow termination
         while True:
             command = input() #Reads serial inputs
             if command == "go":
                 print("go command recognised... let's go!")
                 send(goodPorts,['kbalance', 1],)
-                motion()  #Start walking forwards
+                motion()  #Start walking forwards and follow automatic reactions
             elif command == 'dist':
-                print(distance())
+                print(distance()) #prints the distance signal of the ultrasonic sensor
                 time.sleep(0.2)
             elif command == "serial":
-                while True:
+                serial_comm = 1
+                while serial_comm == 1:
                     print("Waiting for a serial command...")
                     command = input()
                     if command == "quit":
                         Nybble_sleep() #Terminate the code
+                    elif command == "back":
+                        serial_comm = 0
                     else: 
-                        send(goodPorts,[command,0],)
+                        send(goodPorts,[command,0],)   #Sends an input directly to Nybble. Use Petoi documentation for commands
                         time.sleep(0.2)
             elif command == "quit":
                 Nybble_sleep() #Terminate the code
