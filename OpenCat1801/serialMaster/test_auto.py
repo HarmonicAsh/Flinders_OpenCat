@@ -62,7 +62,7 @@ def connect():
         #if len(goodPorts)>0:
         time.sleep(1);
         send(goodPorts,['g',0],)# switch gyroscope
-        print("Enter 'go' to begin. 'quit' or 'stop' to terminate...")
+        print("Enter 'go' to begin, 'dist' to test ultrasonic sensor, 'quit' or 'stop' to terminate...")
         
 def motion():
         print(distance())
@@ -85,7 +85,10 @@ if __name__ == '__main__':
             command = input() #Reads serial inputs
             if command == "go":
                 print("go command recognised..")
-                #motion()  #Wait 5s, walk forwards until obstruction, change course 
+                motion()  #Wait 5s, walk forwards until obstruction, change course
+            elif command == 'dist':
+                print(distance())
+                time.sleep(0.2)
             elif command == "direct":
                 print("direct command recognised. Input serial commands directly.")
                 Nybble_sleep() #Terminate the code
