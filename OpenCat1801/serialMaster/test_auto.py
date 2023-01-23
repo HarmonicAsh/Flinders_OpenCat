@@ -94,10 +94,15 @@ if __name__ == '__main__':
                 print(distance())
                 time.sleep(0.2)
             elif command == "serial":
-                print("Waiting for a serial command...")
-                command = input()
-                send(goodPorts,[command,0],)
-                time.sleep(0.2)
+                while True:
+                    print("Waiting for a serial command...")
+                    command = input()
+                    if command == "quit":
+                        print("stop command recognised..")
+                        Nybble_sleep() #Terminate the code
+                    else: 
+                        send(goodPorts,[command,0],)
+                        time.sleep(0.2)
             elif command == "direct":
                 print("direct command recognised. Input serial commands directly.")
                 Nybble_sleep() #Terminate the code
