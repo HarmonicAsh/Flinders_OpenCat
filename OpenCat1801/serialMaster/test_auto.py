@@ -52,15 +52,15 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         os._exit(0)
 
 def motion():
-        dist = distance()
-        print("Distance = ", dist, "cm")
-        print("Walking forwards...")
-        send(goodPorts,['kwkF',0.2],)
-        if dist <= 20:
-            direction()
-        else:
-            motion()
-
+        send(goodPorts,['kwkF',1],)
+        while True:
+            dist = distance()
+            print("Distance = ", dist, "cm")
+            print("Walking forwards...")
+            time.sleep(0.2)
+            if dist <= 6:
+                direction()
+            
 if __name__ == '__main__':
     try:
         '''
