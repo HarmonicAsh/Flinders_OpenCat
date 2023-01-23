@@ -46,6 +46,7 @@ def direction():
             send(goodPorts,['krest',10],) 
 
 def Nybble_sleep(): #Shuts down Nybble when the script has finished
+        print("stop command recognised..")
         send(goodPorts,['krest',1],)  #Rest
         closeAllSerial(goodPorts)
         logger.info("finish!")
@@ -98,16 +99,11 @@ if __name__ == '__main__':
                     print("Waiting for a serial command...")
                     command = input()
                     if command == "quit":
-                        print("stop command recognised..")
                         Nybble_sleep() #Terminate the code
                     else: 
                         send(goodPorts,[command,0],)
                         time.sleep(0.2)
-            elif command == "direct":
-                print("direct command recognised. Input serial commands directly.")
-                Nybble_sleep() #Terminate the code
             elif command == "quit":
-                print("stop command recognised..")
                 Nybble_sleep() #Terminate the code
        
     except Exception as e:
