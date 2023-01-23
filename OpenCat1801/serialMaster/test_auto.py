@@ -39,17 +39,21 @@ def direction():
 
         #Choose which way to face
         print("Time to find a way around this obstruction...")
-
-        #When Nybble should deviate left
-        if dist_left < dist_right:      
-            send(goodPorts,['kbkL',2],)  
+        
+        #When Nybble should deviate right
+        if dist_left < dist_right:
+            time_mod = dist_left/dist_right
+            time = 2*time_mod
+            send(goodPorts,['kbkL',time],)  
             send(goodPorts,['kbalance',1],)
             send(goodPorts,['kwkF',10],)
             
         
-        #When Nybble should deviate right
-        if dist_left > dist_right:      
-            send(goodPorts,['kbkR',2],) 
+        #When Nybble should deviate left
+        if dist_left > dist_right:    
+            time_mod = dist_right/dist_left
+            time = 2*time_mod
+            send(goodPorts,['kbkR',time],) 
             send(goodPorts,['kbalance',1],)
             send(goodPorts,['kwkF',10],)
 
