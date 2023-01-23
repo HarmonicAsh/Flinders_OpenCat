@@ -53,23 +53,13 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         logger.info("finish!")
         os._exit(0)
 
-def connect():
-        goodPorts = {}
-        connectPort(goodPorts)
-        t=threading.Thread(target = keepCheckingPort, args = (goodPorts,))
-        t.start()
-        parallel = False
-        #if len(goodPorts)>0:
-        time.sleep(1);
-        send(goodPorts,['g',0],)# switch gyroscope
-        print("Enter 'go' to begin, 'dist' to test ultrasonic sensor, 'quit' or 'stop' to terminate...")
-        
 def motion():
         print(distance())
         print("Waiting for 5 seconds, then testing direction change...")
         time.sleep(5)
         print("Walking forwards...")
-        send(goodPorts,['wkF',0],)
+        send(goodPorts,['kbalance', 1],)
+        send(goodPorts,['kwkF',1],)
         direction()
 
 if __name__ == '__main__':
@@ -78,7 +68,15 @@ if __name__ == '__main__':
         testSchedule is used to test various serial port commands
         '''
          #Connect to the Nyboard
-        connect() 
+        goodPorts = {}
+        connectPort(goodPorts)
+        t=threading.Thread(target = keepCheckingPort, args = (goodPorts,))
+        t.start()
+        parallel = False
+        #if len(goodPorts)>0:
+        time.sleep(1);
+        send(goodPorts,['g',0],)# switch gyroscope
+        print("Enter 'go' to begin, 'dist' to test ultrasonic sensor, 'quit' or 'stop' to terminate...") 
         
         #Carry out motions and allow termination
         while True:
