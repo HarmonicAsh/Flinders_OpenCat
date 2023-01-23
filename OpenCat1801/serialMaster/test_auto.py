@@ -81,7 +81,7 @@ if __name__ == '__main__':
         print("'go'' to commence automated motion") 
         print("'dist' to check ultrasonic sensor value") 
         print("'serial' to use Petoi commands directly as a serial input") 
-        print("'quit' or 'stop' to terminate...") 
+        print("'quit' to terminate...") 
         
         #Carry out motions and allow termination
         while True:
@@ -96,16 +96,12 @@ if __name__ == '__main__':
             elif command == "serial":
                 print("Waiting for a serial command...")
                 command = input()
-                if command == "stop" or "quit":
-                    print("stop command recognised..")
-                    Nybble_sleep() #Terminate the code
-                else:
-                    [command,0],)
-                    time.sleep(0.2)
+                send(goodPorts,[command,0],)
+                time.sleep(0.2)
             elif command == "direct":
                 print("direct command recognised. Input serial commands directly.")
                 Nybble_sleep() #Terminate the code
-            elif command == "stop" or "quit":
+            elif command == "quit":
                 print("stop command recognised..")
                 Nybble_sleep() #Terminate the code
        
