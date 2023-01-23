@@ -8,8 +8,6 @@ from ardSerial import *
 from SR04 import *
 
 def direction():
-    dist = distance()
-    if dist <= 20:
         #Sit when an object appears too close
         print("I am too close to something...")
         send(goodPorts,['ksit',1],)  
@@ -54,11 +52,15 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         os._exit(0)
 
 def motion():
-        print(distance())
+        dist = distance()
+        print("Distance = ", dist, "cm")
         print("Walking forwards...")
-        send(goodPorts,['kwkF',0],)
-        direction()
-        motion()
+        send(goodPorts,['kwkF',0.2],)
+        if dist <= 20:
+            direction()
+        else:
+            motion()
+
 if __name__ == '__main__':
     try:
         '''
@@ -83,7 +85,7 @@ if __name__ == '__main__':
             if command == "go":
                 print("go command recognised... let's go!")
                 send(goodPorts,['kbalance', 1],)
-                motion()  #Wait 5s, walk forwards until obstruction, change course
+                motion()  #Start walking forwards
             elif command == 'dist':
                 print(distance())
                 time.sleep(0.2)
