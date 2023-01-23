@@ -2,62 +2,97 @@
 # -*- coding: UTF-8 -*-
 
 import sys
+import time
 sys.path.append("..")
 from ardSerial import *
 from SR04 import *
 
 def direction():
     dist = distance()
-    if dist <= 100:
+    if dist <= 20:
+        #Sit when an object appears too close
         print("I am too close to something...")
-        send(goodPorts,['ksit',1],)  #Sit when an object appears too close
-
-
+        send(goodPorts,['ksit',1],)  
+        
+        #Look straight ahead and measure the distance to the obstruction
         send(goodPorts,['M', ['M', '0', '0', '1', '0'], 1],) #Look straight ahead
         print("Straight ahead: ", dist, " cm")
-        sleep(0.25)
+        time.sleep(0.25)
+
+        #Look left and measure the distance to the obstruction
         send(goodPorts,['M', ['M', '0', '-45', '1', '0'], 1],) #Look left
+        time.sleep(0.25)
         dist_left = dist
-        sleep(0.25)
-        send(goodPorts,['M', ['M', '0', '45', '1', '0'], 2],) #Look right
-
-
+        
+        #Look right and measure the distance to the obstruction
+        send(goodPorts,['M', ['M', '0', '45', '1', '0'], 2],) 
+        time.sleep(0.25)
         dist_right = dist
+
+        #Choose which way to face
         print("Time to find a way around this obstruction...")
-        if dist_left < dist_right:
-            send(goodPorts,['kbkL',2],)  #Back up and face the right
-            send(goodPorts,['kbalance',10],)  #Stand for a while
-        if dist_left > dist_right:
-            send(goodPorts,['kbkR',2],)  #Back up and face the left
-            send(goodPorts,['kbalance',10],)  #Stand for a while
+
+        #When Nybble should deviate left
+        if dist_left < dist_right:      
+            send(goodPorts,['kbkL',2],)  
+            send(goodPorts,['kbalance',10],)  
+        
+        #When Nybble should deviate right
+        if dist_left > dist_right:      
+            send(goodPorts,['kbkR',2],) 
+            send(goodPorts,['kbalance',10],)  
+
+        #If the same reading is recorded (in case of error, should not be possible)
         else:
-            send(goodPorts,['kbalance',2],)  #Back up
-            send(goodPorts,['krest',10],)  #Rest, let's not be defeated by this
+            send(goodPorts,['kbalance',2],)
+            send(goodPorts,['krest',10],) 
+
+def Nybble_sleep(): #Shuts down Nybble when the script has finished
+        send(goodPorts,['krest',1],)  #Rest
+        closeAllSerial(goodPorts)
+        logger.info("finish!")
+        os._exit(0)
+
+def connect():
+        goodPorts = {}
+        connectPort(goodPorts)
+        t=threading.Thread(target = keepCheckingPort, args = (goodPorts,))
+        t.start()
+        parallel = False
+        #if len(goodPorts)>0:
+        time.sleep(1);
+        send(goodPorts,['g',0],)# switch gyroscope
+        print("Enter 'go' to begin. 'quit' or 'stop' to terminate...")
+        
+def motion():
+        print(distance())
+        print("Waiting for 5 seconds, then testing direction change...")
+        time.sleep(5)
+        print("Walking forwards...")
+        send(goodPorts,['wkF',0],)
+        direction()
 
 if __name__ == '__main__':
     try:
         '''
         testSchedule is used to test various serial port commands
         '''
-        goodPorts = {}
-        connectPort(goodPorts)
-        t=threading.Thread(target = keepCheckingPort, args = (goodPorts,))
-        t.start()
-        parallel = False
-#        if len(goodPorts)>0:
-        time.sleep(2);
-        #INSERT HERE, COMMANDS TO BYPASS TESTSCHEDULE
-        print(distance())
-        direction()
-        send(goodPorts,['g',0],)# switch gyroscope
-        send(goodPorts,['z',0],)# switch random behavior
-        send(goodPorts,['kwkF',4],)   
-        send(goodPorts,['ksit',4],) 
-#        schedulerToSkill(goodPorts, testSchedule) # compile the motion related instructions to a skill and send it to the robot. the last skill sent over in this way can be recalled by the 'T' token even after the robot reboots.
-        closeAllSerial(goodPorts)
-        logger.info("finish!")
-        os._exit(0)
-
+         #Connect to the Nyboard
+        connect() 
+        
+        #Carry out motions and allow termination
+        while True:
+            command = input() #Reads serial inputs
+            if command == "go":
+                print("go command recognised..")
+                #motion()  #Wait 5s, walk forwards until obstruction, change course 
+            elif command == "direct":
+                print("direct command recognised. Input serial commands directly.")
+                Nybble_sleep() #Terminate the code
+            elif command == "stop" or "quit":
+                print("stop command recognised..")
+                Nybble_sleep() #Terminate the code
+       
     except Exception as e:
         logger.info("Exception")
         closeAllSerial(goodPorts)
