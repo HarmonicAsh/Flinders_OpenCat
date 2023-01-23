@@ -55,13 +55,10 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 
 def motion():
         print(distance())
-        print("Waiting for 5 seconds, then testing direction change...")
-        time.sleep(5)
         print("Walking forwards...")
-        send(goodPorts,['kbalance', 1],)
-        send(goodPorts,['kwkF',1],)
+        send(goodPorts,['kwkF',0],)
         direction()
-
+        motion()
 if __name__ == '__main__':
     try:
         '''
@@ -75,14 +72,17 @@ if __name__ == '__main__':
         parallel = False
         #if len(goodPorts)>0:
         time.sleep(1);
-        send(goodPorts,['g',0],)# switch gyroscope
+        #send(goodPorts,['p',0],)# pause and shut off servos
+        #send(goodPorts,['g',0],)# switch gyroscope on (begins off?)
+        send(goodPorts,['d',0],)# rest and shut off servos
         print("Enter 'go' to begin, 'dist' to test ultrasonic sensor, 'quit' or 'stop' to terminate...") 
         
         #Carry out motions and allow termination
         while True:
             command = input() #Reads serial inputs
             if command == "go":
-                print("go command recognised..")
+                print("go command recognised... let's go!")
+                send(goodPorts,['kbalance', 1],)
                 motion()  #Wait 5s, walk forwards until obstruction, change course
             elif command == 'dist':
                 print(distance())
