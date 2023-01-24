@@ -68,11 +68,12 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 def motion():
         print("Beginning motion function... ")
         dist = distance()
+        send(goodPorts,['kwkF',1],)
         while dist >= 6:
             dist = distance()
             print("Forwards...")
             print("Distance = ", dist, "cm")
-            send(goodPorts,['kwkF',1],)  #What happened here???
+            time.sleep(1)
         else:
             direction()
             
@@ -119,7 +120,7 @@ if __name__ == '__main__':
             elif command == "serial": #allows the input of Petoi serial commands
                 serial_comm = 1
                 while serial_comm == 1:
-                    print("Waiting for a serial command...")
+                    print("\nWaiting for a Petoi serial command... back to return, quit to exit")
                     command = input()
                     if command == "quit": #Terminate the code
                         Nybble_sleep() 
