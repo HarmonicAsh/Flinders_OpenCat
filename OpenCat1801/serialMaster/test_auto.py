@@ -10,15 +10,12 @@ from SR04 import *
 def direction():
         #Sit when an object appears too close
         print("I am too close to something...")
-        time.sleep(1)
-        send(goodPorts,['ksit',0],)
-        send(goodPorts,['kbalance', 0],)
-        time.sleep(1)
-        
+        send(goodPorts,['ksit',1],)
+        send(goodPorts,['kbalance', 1],)
+                
         #Look straight ahead and measure the distance to the obstruction
-        send(goodPorts,['i', [0, 0, 1, 0], 0],)
+        send(goodPorts,['i', [0, 0, 1, 0], 1],)
         print("Looking straight")
-        time.sleep(1)
         print("Straight ahead: ", dist, " cm")
         time.sleep(1)
 
@@ -110,6 +107,7 @@ if __name__ == '__main__':
             command = input() #Reads serial inputs
             if command == "go":
                 print("go command recognised... let's go!")
+                send(goodPorts,['kbalance',1],)
                 motion()  #Start walking forwards and follow automatic reactions
             elif command == 'dist':
                 print(distance()) #prints the distance signal of the ultrasonic sensor
