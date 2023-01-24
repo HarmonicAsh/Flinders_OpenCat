@@ -10,19 +10,19 @@ from SR04 import *
 def direction():
         #Sit when an object appears too close
         print("I am too close to something...")
-        time.sleep(0.5)
+        time.sleep(1)
         send(goodPorts,['ksit',1],)  
         
         #Look straight ahead and measure the distance to the obstruction
         send(goodPorts,['i', [0, 0, 1, 0], 0.5],)
         print("Looking straight")
-        time.sleep(0.5)
+        time.sleep(1)
         print("Straight ahead: ", dist, " cm")
-        time.sleep(0.5)
+        time.sleep(1)
 
         #Look left and measure the distance to the obstruction
         send(goodPorts,['i', [0, 45, 1, -40], 1],) #Look left
-        time.sleep(0.5)
+        time.sleep(1)
         dist_left = dist
         print("Distance left: ", dist, " cm")
         send(goodPorts,['i', [0, -50, 1, 0], 0.5],)
