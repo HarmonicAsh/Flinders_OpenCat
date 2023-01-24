@@ -15,10 +15,15 @@ def direction():
         #Look straight ahead and measure the distance to the obstruction
         send(goodPorts,['m', [0, -50], 0.5],)
         print("m 0 tested")
+        time.sleep(2)
+
         send(goodPorts, ['m', [0, -5, 0, 10, 1, -5, 0, 10, 0, -5, 1, 10], 1],)
         print("m 0 and 1 tested, sequence")
+        time.sleep(2)
+
         send(goodPorts, ['M', ['M', '8', '-15', '9', '-20'], 2],)
         print("M 8 and 9 simultaneous tested")
+        time.sleep(2)
 
 
         send(goodPorts,['M', ['M', '0', '0', '1', '0'], 1],) #Look straight ahead
