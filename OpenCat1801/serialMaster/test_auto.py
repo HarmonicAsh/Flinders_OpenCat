@@ -19,7 +19,7 @@ def direction():
         print("m 0 and 1 tested, sequence")
         send(goodPorts, ['M', ['M', '8', '-15', '9', '-20'], 2],)
         print("M 8 and 9 simultaneous tested")
-)
+
 
         send(goodPorts,['M', ['M', '0', '0', '1', '0'], 1],) #Look straight ahead
         print("Straight ahead: ", dist, " cm")
@@ -70,6 +70,7 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         os._exit(0)
 
 def motion():
+        print("Beginning of motion")
         send(goodPorts,['kwkF',1],)
         while True:
             dist = distance()
@@ -79,6 +80,15 @@ def motion():
             if dist <= 6:
                 direction()
             
+def start_cat():
+        send(goodPorts,['d',0],) # rest position and shuts off all servos
+        print("\n \nWelcome to the Flinders OpenCat project. Enter a command to begin!") 
+        print("------------------------------------------------------------------")
+        print("'go'' to commence automated motion") 
+        print("'dist' to check ultrasonic sensor value") 
+        print("'serial' to use Petoi commands directly as a serial input") 
+        print("'quit' to terminate...") 
+
 if __name__ == '__main__':
     try:
         '''
@@ -95,12 +105,7 @@ if __name__ == '__main__':
         #send(goodPorts,['p',0],)# pause and shut off servos
         #send(goodPorts,['g',0],)# switch gyroscope on (begins off)
         send(goodPorts,['d',0],) # rest position and shuts off all servos
-        print("\n \n Welcome to the Flinders OpenCat project. Enter a command to begin!") 
-        print("------------------------------------------------------------------")
-        print("'go'' to commence automated motion") 
-        print("'dist' to check ultrasonic sensor value") 
-        print("'serial' to use Petoi commands directly as a serial input") 
-        print("'quit' to terminate...") 
+        start_cat()
         
         while True:
             command = input() #Reads serial inputs
@@ -119,6 +124,7 @@ if __name__ == '__main__':
                     if command == "quit":
                         Nybble_sleep() #Terminate the code
                     elif command == "back":
+                        start_cat()
                         serial_comm = 0
                     else: 
                         send(goodPorts,[command,0],)   #Sends an input directly to Nybble. Use Petoi documentation for commands
