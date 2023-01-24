@@ -68,6 +68,8 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         os._exit(0)
 
 def motion():
+        print("Beginning motion function.. ")
+        dist = distance()        
         while dist >= 6:
             print("Forwards...")
             print("Distance = ", dist, "cm")
@@ -108,7 +110,6 @@ if __name__ == '__main__':
             command = input() #Reads serial inputs
             if command == "go":
                 print("go command recognised... let's go!")
-                dist = distance()
                 motion()  #Start walking forwards and follow automatic reactions
             elif command == 'dist':
                 print(distance()) #prints the distance signal of the ultrasonic sensor
