@@ -69,13 +69,13 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 
 def motion():
         print("Beginning motion function.. ")
-        dist = distance()        
+        dist = distance()
         while dist >= 6:
             print("Forwards...")
             print("Distance = ", dist, "cm")
             send(goodPorts,['kwkF',1],)
-            dist = distance()
             time.sleep(0.2)
+            dist = distance()            
         else:
             direction()
             
