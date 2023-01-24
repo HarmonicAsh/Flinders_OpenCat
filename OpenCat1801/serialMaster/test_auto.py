@@ -11,10 +11,11 @@ def direction():
         #Sit when an object appears too close
         print("I am too close to something...")
         time.sleep(1)
-        send(goodPorts,['ksit',1],)  
+        send(goodPorts,['ksit',0],)  
+        time.sleep(1)
         
         #Look straight ahead and measure the distance to the obstruction
-        send(goodPorts,['i', [0, 0, 1, 0], 0.5],)
+        send(goodPorts,['i', [0, 0, 1, 0], 0],)
         print("Looking straight")
         time.sleep(1)
         print("Straight ahead: ", dist, " cm")
@@ -25,11 +26,11 @@ def direction():
         time.sleep(1)
         dist_left = dist
         print("Distance left: ", dist, " cm")
-        send(goodPorts,['i', [0, -50, 1, 0], 0.5],)
+        send(goodPorts,['i', [0, -50, 1, 0], 0],)
         
         #Look right and measure the distance to the obstruction
         send(goodPorts,['i', [0, -45, 1, -40], 1],)
-        time.sleep(0.5)
+        time.sleep(1)
         dist_right = dist
         print("Distance right: ", dist, " cm")
 
@@ -108,7 +109,8 @@ if __name__ == '__main__':
             if command == "go":
                 print("go command recognised... let's go!")
                 time.sleep(1)
-                send(goodPorts,['kbalance', 1],)
+                send(goodPorts,['kbalance', 0],)
+                time.sleep(1)
                 motion()  #Start walking forwards and follow automatic reactions
             elif command == 'dist':
                 print(distance()) #prints the distance signal of the ultrasonic sensor
