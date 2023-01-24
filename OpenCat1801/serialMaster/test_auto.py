@@ -13,31 +13,21 @@ def direction():
         send(goodPorts,['ksit',1],)  
         
         #Look straight ahead and measure the distance to the obstruction
-        send(goodPorts,['m', [0, -50], 0.5],)
-        print("m 0 tested")
+        send(goodPorts,['i', [0, 0, 1, 0], 0.5],)
+        print("Looking straight")
         time.sleep(2)
-
-        send(goodPorts, ['m', [0, -5, 0, 10, 1, -5, 0, 10, 0, -5, 1, 10], 1],)
-        print("m 0 and 1 tested, sequence")
-        time.sleep(2)
-
-        send(goodPorts, ['M', ['M', '8', '-15', '9', '-20'], 2],)
-        print("M 8 and 9 simultaneous tested")
-        time.sleep(2)
-
-
-        send(goodPorts,['M', ['M', '0', '0', '1', '0'], 1],) #Look straight ahead
         print("Straight ahead: ", dist, " cm")
         time.sleep(0.5)
 
         #Look left and measure the distance to the obstruction
-        send(goodPorts,['M', ['M', '0', '-45', '1', '0'], 1],) #Look left
+        send(goodPorts,['i', [0, 45, 1, -40], 1],) #Look left
         time.sleep(0.5)
         dist_left = dist
         print("Distance left: ", dist, " cm")
+        send(goodPorts,['i', [0, -50, 1, 0], 0.5],)
         
         #Look right and measure the distance to the obstruction
-        send(goodPorts,['M', ['M', '0', '45', '1', '0'], 2],) 
+        send(goodPorts,['i', [0, -45, 1, -40], 1],)
         time.sleep(0.5)
         dist_right = dist
         print("Distance right: ", dist, " cm")
