@@ -107,6 +107,7 @@ if __name__ == '__main__':
             command = input() #Reads serial inputs
             if command == "go":
                 print("go command recognised... let's go!")
+                time.sleep(1)
                 send(goodPorts,['kbalance', 1],)
                 motion()  #Start walking forwards and follow automatic reactions
             elif command == 'dist':
