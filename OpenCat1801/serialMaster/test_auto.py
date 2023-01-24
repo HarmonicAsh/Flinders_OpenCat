@@ -65,14 +65,13 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         os._exit(0)
 
 def motion():
-        print("Beginning motion function.. ")
+        print("Beginning motion function... ")
         dist = distance()
         while dist >= 6:
+            dist = distance()
             print("Forwards...")
             print("Distance = ", dist, "cm")
-            send(goodPorts,['kwkF',1],)
-            time.sleep(0.2)
-            dist = distance()            
+            send(goodPorts,['kwkF',1],)  #What happened here???
         else:
             direction()
             
@@ -90,44 +89,48 @@ if __name__ == '__main__':
         '''
         testSchedule is used to test various serial port commands
         '''
-        #Connect to the Nyboard
+        print("Let's see if this repeats..")
         goodPorts = {}
         connectPort(goodPorts)
         t=threading.Thread(target = keepCheckingPort, args = (goodPorts,))
         t.start()
         parallel = False
-        #if len(goodPorts)>0:
         time.sleep(1)
-        #send(goodPorts,['p',0],)# pause and shut off servos
         #send(goodPorts,['g',0],)# switch gyroscope on (begins off)
         send(goodPorts,['d',1],) # rest position and shuts off all servos
         start_cat()
         
         while True:
             command = input() #Reads serial inputs
+
             if command == "go":
                 print("go command recognised... let's go!")
-                send(goodPorts,['kbalance',1],)
-                motion()  #Start walking forwards and follow automatic reactions
-            elif command == 'dist':
-                print(distance()) #prints the distance signal of the ultrasonic sensor
-                time.sleep(0.2)
-            elif command == "serial":
+                send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
+                motion()  #Start walking forwards and attempt to avoid walls
+
+            elif command == 'dist': #prints the distance signal of the ultrasonic sensor
+                for i in range(10):
+                    print(distance()) 
+                    time.sleep(1)
+
+            elif command == "serial": #allows the input of Petoi serial commands
                 serial_comm = 1
                 while serial_comm == 1:
                     print("Waiting for a serial command...")
                     command = input()
-                    if command == "quit":
-                        Nybble_sleep() #Terminate the code
-                    elif command == "back":
+                    if command == "quit": #Terminate the code
+                        Nybble_sleep() 
+                    elif command == "back": #Return to main command meny
                         start_cat()
                         serial_comm = 0
                     else: 
-                        send(goodPorts,[command,0],)   #Sends an input directly to Nybble. Use Petoi documentation for commands
+                        send(goodPorts,[command,0],) #Sends an input directly to Nybble. Use Petoi documentation for commands
                         time.sleep(0.2)
+
             elif command == "quit":
                 Nybble_sleep() #Terminate the code
-       
+        print("Do we ever reach this line?")
+
     except Exception as e:
         logger.info("Exception")
         closeAllSerial(goodPorts)
