@@ -265,9 +265,11 @@ if __name__ == '__main__':
         parallel = False
 #        if len(goodPorts)>0:
         time.sleep(2);
-        for task in testSchedule:  # execute the tasks in the testSchedule
-            print(task)
-            send(goodPorts, task)
+        send(goodPorts,['M', ['M', '0', '-45', '1', '0'], 1],)
+        
+        #for task in testSchedule:  # execute the tasks in the testSchedule
+         #   print(task)
+          #  send(goodPorts, task)
         
 #        schedulerToSkill(goodPorts, testSchedule) # compile the motion related instructions to a skill and send it to the robot. the last skill sent over in this way can be recalled by the 'T' token even after the robot reboots.
         closeAllSerial(goodPorts)
