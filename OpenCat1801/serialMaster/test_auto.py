@@ -99,7 +99,7 @@ if __name__ == '__main__':
         time.sleep(1);
         #send(goodPorts,['p',0],)# pause and shut off servos
         #send(goodPorts,['g',0],)# switch gyroscope on (begins off)
-        send(goodPorts,['d',0],) # rest position and shuts off all servos
+        send(goodPorts,['d',1],) # rest position and shuts off all servos
         start_cat()
         
         while True:
