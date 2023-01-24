@@ -10,12 +10,13 @@ from SR04 import *
 def direction():
         #Sit when an object appears too close
         print("I am too close to something...")
+        time.sleep(0.5)
         send(goodPorts,['ksit',1],)  
         
         #Look straight ahead and measure the distance to the obstruction
         send(goodPorts,['i', [0, 0, 1, 0], 0.5],)
         print("Looking straight")
-        time.sleep(2)
+        time.sleep(0.5)
         print("Straight ahead: ", dist, " cm")
         time.sleep(0.5)
 
@@ -96,7 +97,7 @@ if __name__ == '__main__':
         t.start()
         parallel = False
         #if len(goodPorts)>0:
-        time.sleep(1);
+        time.sleep(1)
         #send(goodPorts,['p',0],)# pause and shut off servos
         #send(goodPorts,['g',0],)# switch gyroscope on (begins off)
         send(goodPorts,['d',1],) # rest position and shuts off all servos
