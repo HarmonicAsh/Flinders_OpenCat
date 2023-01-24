@@ -80,7 +80,7 @@ def start_cat():
         print("\n \nWelcome to the Flinders OpenCat project. Enter a command to begin!") 
         print("------------------------------------------------------------------")
         print("'go'' to commence automated motion") 
-        print("'dist' to check ultrasonic sensor value") 
+        print("'dist' prints ulstrasonic sensor measured distance for 10 seconds") 
         print("'serial' to use Petoi commands directly as a serial input") 
         print("'quit' to terminate...") 
 
@@ -109,9 +109,11 @@ if __name__ == '__main__':
                 motion()  #Start walking forwards and attempt to avoid walls
 
             elif command == 'dist': #prints the distance signal of the ultrasonic sensor
+                print("/nMeasured distance (centimetres)")
                 for i in range(10):
                     print(distance()) 
                     time.sleep(1)
+                start_cat()
 
             elif command == "serial": #allows the input of Petoi serial commands
                 serial_comm = 1
