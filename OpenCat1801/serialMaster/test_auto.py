@@ -11,7 +11,8 @@ def direction():
         #Sit when an object appears too close
         print("I am too close to something...")
         time.sleep(1)
-        send(goodPorts,['ksit',0],)  
+        send(goodPorts,['ksit',0],)
+        send(goodPorts,['kbalance', 0],)
         time.sleep(1)
         
         #Look straight ahead and measure the distance to the obstruction
@@ -67,15 +68,14 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         os._exit(0)
 
 def motion():
-        print("Beginning of motion")
-        send(goodPorts,['kwkF',1],)
-        while True:
-            dist = distance()
+        while dist >= 6:
+            print("Forwards...")
             print("Distance = ", dist, "cm")
-            print("Walking forwards...")
+            send(goodPorts,['kwkF',1],)
+            dist = distance()
             time.sleep(0.2)
-            if dist <= 6:
-                direction()
+        else:
+            direction()
             
 def start_cat():
         send(goodPorts,['d',0],) # rest position and shuts off all servos
@@ -91,7 +91,7 @@ if __name__ == '__main__':
         '''
         testSchedule is used to test various serial port commands
         '''
-         #Connect to the Nyboard
+        #Connect to the Nyboard
         goodPorts = {}
         connectPort(goodPorts)
         t=threading.Thread(target = keepCheckingPort, args = (goodPorts,))
@@ -108,9 +108,7 @@ if __name__ == '__main__':
             command = input() #Reads serial inputs
             if command == "go":
                 print("go command recognised... let's go!")
-                time.sleep(1)
-                send(goodPorts,['kbalance', 0],)
-                time.sleep(1)
+                dist = distance()
                 motion()  #Start walking forwards and follow automatic reactions
             elif command == 'dist':
                 print(distance()) #prints the distance signal of the ultrasonic sensor
