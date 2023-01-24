@@ -8,6 +8,7 @@ from ardSerial import *
 from SR04 import *
 
 def direction():
+        dist = direction() 
         #Sit when an object appears too close
         print("I am too close to something...")
         send(goodPorts,['ksit',1],)
@@ -109,7 +110,7 @@ if __name__ == '__main__':
                 motion()  #Start walking forwards and attempt to avoid walls
 
             elif command == 'dist': #prints the distance signal of the ultrasonic sensor
-                print("/nMeasured distance (centimetres)")
+                print("\nMeasured distance (centimetres)")
                 for i in range(10):
                     print(distance()) 
                     time.sleep(1)
