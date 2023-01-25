@@ -24,14 +24,14 @@ def direction():
         if dist_left < dist_right:      #When Nybble should deviate right
             time_mod = dist_left/dist_right
             print("Time factor (face left) = ", time_mod)
-            time = 7*time_mod
+            time = 8*time_mod
             send(goodPorts,['kbkL',time],)
             send(goodPorts,['kwkR',time],)
             motion()
         elif dist_left > dist_right:        #When Nybble should deviate ;eft   
             time_mod = dist_right/dist_left
             print("Time factor (face right) = ", time_mod)
-            time = 7*time_mod
+            time = 8*time_mod
             send(goodPorts,['kbkR',time],)
             send(goodPorts,['kwkL',time],)
             motion()
@@ -48,9 +48,12 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         os._exit(0)
 
 def motion():
-        dist = distance()
-        send(goodPorts,['kwkF',0.25],)
-        while dist >= 14:
+        for i in range(4):   #Need to add some form of error checking here!
+            dist = distance()
+            total = total + dist
+        dist = total/4    
+        send(goodPorts,['kwkF',0.1],)
+        while dist >= 20:
             dist = distance()
             print("Forwards...")
             print("Distance = ", dist, "cm")
