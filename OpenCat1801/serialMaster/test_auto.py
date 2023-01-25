@@ -68,6 +68,7 @@ def motion():
         dist = distance()
         send(goodPorts,['kwkF',0.25],)
         while dist >= 8:
+            dist = distance()
             print("Forwards...")
             print("Distance = ", dist, "cm")
             time.sleep(1)
