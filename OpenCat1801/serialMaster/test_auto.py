@@ -48,7 +48,7 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         os._exit(0)
 
 def read_in():
-    command = input() #Reads serial inputs
+        command = input() #Reads serial inputs
         if command == "quit":
             Nybble_sleep
         else:
@@ -106,7 +106,7 @@ if __name__ == '__main__':
                 send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
                 motion()  #Start walking forwards and attempt to avoid walls
 
-            elif command == 'dist': #prints the distance signal of the ultrasonic sensor
+            elif command == "dist": #prints the distance signal of the ultrasonic sensor
                 print("\nMeasured distance (centimetres)")
                 for i in range(10):
                     print(distance()) 
