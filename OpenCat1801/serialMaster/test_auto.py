@@ -58,7 +58,7 @@ def direction():
             send(goodPorts,['krest',10],) 
 
 def Nybble_sleep(): #Shuts down Nybble when the script has finished
-        print("stop command recognised..")
+        print("\nTerminating... farewell!")
         send(goodPorts,['krest',1],)  #Rest
         closeAllSerial(goodPorts)
         logger.info("finish!")
@@ -67,7 +67,7 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 def motion():
         dist = distance()
         send(goodPorts,['kwkF',0.25],)
-        if dist >= 8:
+        while dist >= 8:
             print("Forwards...")
             print("Distance = ", dist, "cm")
             time.sleep(1)
@@ -131,7 +131,6 @@ if __name__ == '__main__':
                         time.sleep(0.2)
 
             elif command == "quit":
-                print("\nTerminating... farewell!")
                 Nybble_sleep() #Terminate the code
         
     except Exception as e:
