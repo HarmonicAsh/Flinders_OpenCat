@@ -34,20 +34,20 @@ def direction():
         if dist_left < dist_right:
             time_mod = dist_left/dist_right
             print("Time factor (face left) = ", time_mod)
-            time = 10*time_mod
+            time = 14*time_mod
             send(goodPorts,['kbkL',time],)  
             send(goodPorts,['kbalance',1],)
-            send(goodPorts,['kwkF',10],)
+            motion()
             
         
         #When Nybble should deviate left
         if dist_left > dist_right:    
             time_mod = dist_right/dist_left
             print("Time factor (face right) = ", time_mod)
-            time = 10*time_mod
+            time = 14*time_mod
             send(goodPorts,['kbkR',time],) 
             send(goodPorts,['kbalance',1],)
-            send(goodPorts,['kwkF',10],)
+            motion()
 
         #If the same reading is recorded (in case of error, should not be possible)
         else:
