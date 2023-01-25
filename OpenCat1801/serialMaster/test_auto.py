@@ -9,24 +9,23 @@ from SR04 import *
 
 def direction():
         dist = distance() 
-        #Sit when an object appears too close
         send(goodPorts,['ksit',1],)
                         
         #Look straight ahead and measure the distance to the obstruction
         send(goodPorts,['i', [0, 0, 1, 0], 1],)
-        print("Looking straight")
-        print("Straight ahead: ", dist, " cm")
+        print("\nThe obstruction is... ")
+        print(dist, " cm in front")
         
         #Look left and measure the distance to the obstruction
         send(goodPorts,['i', [0, 45, 1, -40], 1],) #Look left
-        dist_left = dist
-        print("Distance left: ", dist, " cm")
+        dist_left = distance()
+        print(dist_left, " cm to the left")
         send(goodPorts,['i', [0, -50, 1, 0], 1],)
         
         #Look right and measure the distance to the obstruction
         send(goodPorts,['i', [0, -45, 1, -40], 1],)
-        dist_right = dist
-        print("Distance right: ", dist, " cm")
+        dist_right = distance()
+        print(dist_right, " cm to the right")
 
         #Choose which way to face
         print("Time to find a way around this obstruction...")
@@ -50,6 +49,7 @@ def direction():
 
         #If the same reading is recorded (in case of error, should not be possible)
         else:
+            print("These measurements don't make sense... sleeping now")
             send(goodPorts,['kbalance',2],)
             send(goodPorts,['krest',10],) 
 
@@ -69,7 +69,7 @@ def motion():
             print("Distance = ", dist, "cm")
             time.sleep(0.2)
         else:
-            print("I am too close to something...")
+            print("\nI am too close to something...")
             direction()
             
 def start_cat():
