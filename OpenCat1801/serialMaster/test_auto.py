@@ -47,20 +47,8 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         logger.info("finish!")
         os._exit(0)
 
-def read_in():
-        command = input() #Reads serial inputs
-        if command == "quit":
-            Nybble_sleep
-        else:
-            pass
-
 def motion():
-        read_in()
-        else:
-            for i in range(4):   #Need to add some form of error checking here!
-            dist = distance()
-            total = total + dist
-        dist = total/4    
+        dist = distance() #Need to add some form of error checking here!
         send(goodPorts,['kwkF',0.1],)
         while dist >= 20:
             dist = distance()
