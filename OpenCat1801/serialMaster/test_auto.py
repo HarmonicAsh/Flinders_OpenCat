@@ -71,7 +71,26 @@ def start_cat():
         print("'test' to operate the function test() as required") 
 
 def test():
-        print("This here is the test function... stand by")
+        print("This here is the test function... standby")
+        send(goodPorts,['ksit',time],) #sit
+
+        send(goodPorts,['i', [0, 0, 1, -30], 0.5],) #straight
+        send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left and measure the distance to the obstruction
+        send(goodPorts,['i', [0, 0, 1, -30], 0.5],) #straight
+        
+
+
+
+
+
+        print("\nMeasured distance (centimetres)")
+        for i in range(50):
+               print(distance()) 
+               time.sleep(0.2)
+               ser_0 = -i
+               ser_1 = (-i/6.25)-30
+               send(goodPorts,['i', [0, ser_0, 1, ser_1], 0.5],) #attempt to take a sweeping measurement!
+        start_cat()
 
 if __name__ == '__main__':
     try:
