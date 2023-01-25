@@ -33,6 +33,7 @@ def direction():
         #When Nybble should deviate right
         if dist_left < dist_right:
             time_mod = dist_left/dist_right
+            print("Time factor (face left) = ", time_mod)
             time = 10*time_mod
             send(goodPorts,['kbkL',time],)  
             send(goodPorts,['kbalance',1],)
@@ -42,7 +43,8 @@ def direction():
         #When Nybble should deviate left
         if dist_left > dist_right:    
             time_mod = dist_right/dist_left
-            time = 2*time_mod
+            print("Time factor (face right) = ", time_mod)
+            time = 10*time_mod
             send(goodPorts,['kbkR',time],) 
             send(goodPorts,['kbalance',1],)
             send(goodPorts,['kwkF',10],)
@@ -87,7 +89,6 @@ if __name__ == '__main__':
         '''
         testSchedule is used to test various serial port commands
         '''
-        print("Let's see if this repeats..")
         goodPorts = {}
         connectPort(goodPorts)
         t=threading.Thread(target = keepCheckingPort, args = (goodPorts,))
