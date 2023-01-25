@@ -8,7 +8,7 @@ from ardSerial import *
 from SR04 import *
 
 def direction():
-        dist = direction() 
+        dist = distance() 
         #Sit when an object appears too close
         send(goodPorts,['ksit',1],)
         send(goodPorts,['kbalance', 1],)
