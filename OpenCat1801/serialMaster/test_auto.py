@@ -9,48 +9,33 @@ from SR04 import *
 
 def direction():
         dist = distance() 
-        send(goodPorts,['ksit',1],)
-                        
-        #Look straight ahead and measure the distance to the obstruction
-        send(goodPorts,['i', [0, 0, 1, -30], 1],)
+        send(goodPorts,['ksit',0.5],)  #SIt, then look straight ahead and measure the distance to the obstruction
+        send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
         print("\nThe obstruction is... ")
         print(dist, " cm in front")
-        
-        #Look left and measure the distance to the obstruction
-        send(goodPorts,['i', [0, 50, 1, -38], 1],) #Look left
+        send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left and measure the distance to the obstruction
         dist_left = distance()
         print(dist_left, " cm to the left")
-        
-        
-        #Look right and measure the distance to the obstruction
-        send(goodPorts,['i', [0, -50, 1, -38], 1],)
+        send(goodPorts,['i', [0, -50, 1, -38], 0.5],) #Look right and measure the distance to the obstruction
         dist_right = distance()
         print(dist_right, " cm to the right")
-
-        #Choose which way to face
         print("Time to find a way around this obstruction...")
         
-        #When Nybble should deviate right
-        if dist_left < dist_right:
+        if dist_left < dist_right:      #When Nybble should deviate right
             time_mod = dist_left/dist_right
             print("Time factor (face left) = ", time_mod)
-            time = 14*time_mod
-            send(goodPorts,['kbkL',time],)  
-            send(goodPorts,['kbalance',1],)
+            time = 7*time_mod
+            send(goodPorts,['kbkL',time],)
+            send(goodPorts,['kwkR',time],)
             motion()
-            
-        
-        #When Nybble should deviate left
-        if dist_left > dist_right:    
+        elif dist_left > dist_right:        #When Nybble should deviate ;eft   
             time_mod = dist_right/dist_left
             print("Time factor (face right) = ", time_mod)
-            time = 14*time_mod
-            send(goodPorts,['kbkR',time],) 
-            send(goodPorts,['kbalance',1],)
+            time = 7*time_mod
+            send(goodPorts,['kbkR',time],)
+            send(goodPorts,['kwkL',time],)
             motion()
-
-        #If the same reading is recorded (in case of error, should not be possible)
-        else:
+        else: #If the same reading is recorded (in case of error, should not be possible)
             print("These measurements don't make sense... sleeping now")
             send(goodPorts,['kbalance',2],)
             send(goodPorts,['krest',10],) 
@@ -65,7 +50,7 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 def motion():
         dist = distance()
         send(goodPorts,['kwkF',0.25],)
-        while dist >= 8:
+        while dist >= 14:
             dist = distance()
             print("Forwards...")
             print("Distance = ", dist, "cm")
