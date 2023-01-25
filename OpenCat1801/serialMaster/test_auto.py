@@ -12,18 +12,18 @@ def direction():
         send(goodPorts,['ksit',1],)
                         
         #Look straight ahead and measure the distance to the obstruction
-        send(goodPorts,['i', [0, 0, 1, 0], 1],)
+        send(goodPorts,['i', [0, 0, 1, -30], 1],)
         print("\nThe obstruction is... ")
         print(dist, " cm in front")
         
         #Look left and measure the distance to the obstruction
-        send(goodPorts,['i', [0, 45, 1, -40], 1],) #Look left
+        send(goodPorts,['i', [0, 50, 1, -38], 1],) #Look left
         dist_left = distance()
         print(dist_left, " cm to the left")
-        send(goodPorts,['i', [0, -50, 1, 0], 1],)
+        
         
         #Look right and measure the distance to the obstruction
-        send(goodPorts,['i', [0, -45, 1, -40], 1],)
+        send(goodPorts,['i', [0, -50, 1, -38], 1],)
         dist_right = distance()
         print(dist_right, " cm to the right")
 
@@ -33,7 +33,7 @@ def direction():
         #When Nybble should deviate right
         if dist_left < dist_right:
             time_mod = dist_left/dist_right
-            time = 2*time_mod
+            time = 10*time_mod
             send(goodPorts,['kbkL',time],)  
             send(goodPorts,['kbalance',1],)
             send(goodPorts,['kwkF',10],)
