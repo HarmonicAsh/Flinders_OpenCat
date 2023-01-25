@@ -47,8 +47,17 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         logger.info("finish!")
         os._exit(0)
 
+def read_in():
+    command = input() #Reads serial inputs
+        if command == "quit":
+            Nybble_sleep
+        else:
+            pass
+
 def motion():
-        for i in range(4):   #Need to add some form of error checking here!
+        read_in()
+        else:
+            for i in range(4):   #Need to add some form of error checking here!
             dist = distance()
             total = total + dist
         dist = total/4    
