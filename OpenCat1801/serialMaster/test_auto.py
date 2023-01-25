@@ -10,7 +10,6 @@ from SR04 import *
 def direction():
         dist = direction() 
         #Sit when an object appears too close
-        print("I am too close to something...")
         send(goodPorts,['ksit',1],)
         send(goodPorts,['kbalance', 1],)
                 
@@ -66,20 +65,20 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         os._exit(0)
 
 def motion():
-        print("Beginning motion function... ")
         dist = distance()
-        send(goodPorts,['kwkF',1],)
-        while dist >= 6:
-            dist = distance()
+        send(goodPorts,['kwkF',0.25],)
+        if dist >= 8:
             print("Forwards...")
             print("Distance = ", dist, "cm")
             time.sleep(1)
         else:
+            print("I am too close to something...")
             direction()
             
 def start_cat():
         send(goodPorts,['d',0],) # rest position and shuts off all servos
-        print("\n \nWelcome to the Flinders OpenCat project. Enter a command to begin!") 
+        print("\n \n------------------------------------------------------------------")
+        print("Welcome to the Flinders OpenCat project. Enter a command to begin!") 
         print("------------------------------------------------------------------")
         print("'go'' to commence automated motion") 
         print("'dist' prints ulstrasonic sensor measured distance for 10 seconds") 
@@ -106,7 +105,7 @@ if __name__ == '__main__':
             command = input() #Reads serial inputs
 
             if command == "go":
-                print("go command recognised... let's go!")
+                print("\nGo command recognised... let's go!")
                 send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
                 motion()  #Start walking forwards and attempt to avoid walls
 
@@ -132,9 +131,9 @@ if __name__ == '__main__':
                         time.sleep(0.2)
 
             elif command == "quit":
+                print("\nTerminating... farewell!")
                 Nybble_sleep() #Terminate the code
-        print("Do we ever reach this line?")
-
+        
     except Exception as e:
         logger.info("Exception")
         closeAllSerial(goodPorts)
