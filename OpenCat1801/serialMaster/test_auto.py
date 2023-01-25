@@ -67,7 +67,7 @@ def motion():
             dist = distance()
             print("Forwards...")
             print("Distance = ", dist, "cm")
-            time.sleep(1)
+            time.sleep(0.2)
         else:
             print("I am too close to something...")
             direction()
@@ -96,6 +96,7 @@ if __name__ == '__main__':
         time.sleep(1)
         #send(goodPorts,['g',0],)# switch gyroscope on (begins off)
         send(goodPorts,['d',1],) # rest position and shuts off all servos
+        send(goodPorts,['z',1],) # disable random behaviour
         start_cat()
         
         while True:
@@ -103,6 +104,7 @@ if __name__ == '__main__':
 
             if command == "go":
                 print("\nGo command recognised... let's go!")
+                send(goodPorts,['u',1],)
                 send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
                 motion()  #Start walking forwards and attempt to avoid walls
 
