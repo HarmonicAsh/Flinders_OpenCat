@@ -24,14 +24,14 @@ def direction():
         if dist_left < dist_right:      #When Nybble should deviate right
             time_mod = dist_left/dist_right
             print("Time factor (face left) = ", time_mod)
-            time = 8*time_mod
+            time = 6.5*time_mod
             send(goodPorts,['kbkL',time],)
             send(goodPorts,['kwkR',time],)
             motion()
         elif dist_left > dist_right:        #When Nybble should deviate ;eft   
             time_mod = dist_right/dist_left
             print("Time factor (face right) = ", time_mod)
-            time = 8*time_mod
+            time = 6*time_mod
             send(goodPorts,['kbkR',time],)
             send(goodPorts,['kwkL',time],)
             motion()
@@ -68,6 +68,10 @@ def start_cat():
         print("'dist' prints ulstrasonic sensor measured distance for 10 seconds") 
         print("'serial' to use Petoi commands directly as a serial input") 
         print("'quit' to terminate...") 
+        print("'test' to operate the function test() as required") 
+
+def test():
+        print("This here is the test function... stand by")
 
 if __name__ == '__main__':
     try:
@@ -99,6 +103,11 @@ if __name__ == '__main__':
                 for i in range(10):
                     print(distance()) 
                     time.sleep(1)
+                start_cat()
+
+            elif command == "test": #Runs test() once
+                print("\nRunning test()")
+                test()
                 start_cat()
 
             elif command == "serial": #allows the input of Petoi serial commands
