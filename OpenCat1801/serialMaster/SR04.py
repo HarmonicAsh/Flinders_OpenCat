@@ -17,7 +17,6 @@ def distance():
 
     StartTime = time.time()
     StopTime = time.time()
-    print("Test line 1")
     # save StartTime
 
     GPIO.setup(SIG, GPIO.IN)
