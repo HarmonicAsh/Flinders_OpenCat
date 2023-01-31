@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 # -*- coding: UTF-8 -*-
 
+#Req pyserial and pip3
+#sudo apt-get install python3-tk
+#Use to install Pip3 as req: sudo apt-get -y install python3-pip
 import sys
 import time
 sys.path.append("..")
@@ -24,14 +27,14 @@ def direction():
         if dist_left < dist_right:      #When Nybble should deviate right
             time_mod = dist_left/dist_right
             print("Time factor (face left) = ", time_mod)
-            time = 6.5*time_mod
+            time = 8*time_mod
             send(goodPorts,['kbkL',time],)
             send(goodPorts,['kwkR',time],)
             motion()
         elif dist_left > dist_right:        #When Nybble should deviate ;eft   
             time_mod = dist_right/dist_left
             print("Time factor (face right) = ", time_mod)
-            time = 6*time_mod
+            time = 8*time_mod
             send(goodPorts,['kbkR',time],)
             send(goodPorts,['kwkL',time],)
             motion()
@@ -50,7 +53,7 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 def motion():
         dist = distance() #Need to add some form of error checking here!
         send(goodPorts,['kwkF',0.1],)
-        while dist >= 20:
+        while dist >= 24:
             dist = distance()
             print("Forwards...")
             print("Distance = ", dist, "cm")
@@ -103,7 +106,7 @@ if __name__ == '__main__':
         t.start()
         parallel = False
         time.sleep(1)
-        #send(goodPorts,['g',0],)# switch gyroscope on (begins off)
+        send(goodPorts,['g',0],)# switch gyroscope on (begins off)
         send(goodPorts,['d',1],) # rest position and shuts off all servos
         send(goodPorts,['z',1],) # disable random behaviour
         start_cat()
