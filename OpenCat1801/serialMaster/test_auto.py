@@ -4,6 +4,10 @@
 #Req pyserial and pip3
 #sudo apt-get install python3-tk
 #Use to install Pip3 as req: sudo apt-get -y install python3-pip
+
+#https://wavlist.com/animals-cats-20-wavs/ cat sounds found here <-
+
+
 import sys
 import time
 sys.path.append("..")
