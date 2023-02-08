@@ -1,3 +1,10 @@
+#https://electronoobs.com/eng_arduino_tut171.php
+#pip install SpeechRecognition
+#sudo apt install pyaudio
+#pip install sounddevice
+
+
+import sounddevice
 import serial
 import speech_recognition as sr
 
