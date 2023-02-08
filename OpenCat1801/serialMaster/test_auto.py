@@ -36,6 +36,11 @@ def direction():
             time_mod = dist_right/dist_left
             print("Time factor (face right) = ", time_mod)   
             send(goodPorts,['kbkR',0],)
+         else: #If the same reading is recorded (in case of error, should not be possible)
+            print("These measurements don't make sense... potential ultrasonic sensor error")
+            send(goodPorts,['kbalance',2],)
+            send(goodPorts,['krest',10],) 
+            motion()
         
         time.sleep(1)                       #Prevents getting stuck in a loop of rechecking distances
         for i in range(round(10*time_mod)):  #Re-orient position and recheck distance throughout progress
@@ -47,10 +52,7 @@ def direction():
                 pass
         motion()
              
-        else: #If the same reading is recorded (in case of error, should not be possible)
-            print("These measurements don't make sense... potential ultrasonic sensor error")
-            send(goodPorts,['kbalance',2],)
-            send(goodPorts,['krest',10],) 
+       
 
 def Nybble_sleep(): #Shuts down Nybble when the script has finished
         print("\nTerminating... farewell!")
