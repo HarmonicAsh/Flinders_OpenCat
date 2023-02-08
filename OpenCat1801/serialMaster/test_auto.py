@@ -108,21 +108,12 @@ def test():
             time_mod = dist_right/dist_left
             print("Time factor (face left) = ", time_mod)   
             
-        else: #If the same reading is recorded (in case of error, should not be possible)
-            print("These measurements don't make sense... potential ultrasonic sensor error")
-            send(goodPorts,['kbalance',2],)
-            send(goodPorts,['krest',10],) 
-            motion()
+        else:
+            pass
         
-        time.sleep(3)                        #Prevents getting stuck in a loop of rechecking distances
-        for i in range(round(25*time_mod)):  #Re-orient position and recheck distance throughout progress
-            dist = distance()
-            if dist <= 22:
-                direction()
-            else:
-                time.sleep(0.25)
-                pass
         print("------------------------------------------------------------------") 
+        print("Test completed..")
+        start_cat()
         
 def read_inputs():
         command = input() #Reads serial inputs
