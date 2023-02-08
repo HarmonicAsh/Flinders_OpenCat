@@ -36,16 +36,17 @@ def direction():
             time_mod = dist_right/dist_left
             print("Time factor (face right) = ", time_mod)   
             send(goodPorts,['kbkR',0],)
-         else: #If the same reading is recorded (in case of error, should not be possible)
+
+        else: #If the same reading is recorded (in case of error, should not be possible)
             print("These measurements don't make sense... potential ultrasonic sensor error")
             send(goodPorts,['kbalance',2],)
             send(goodPorts,['krest',10],) 
             motion()
         
-        time.sleep(1)                       #Prevents getting stuck in a loop of rechecking distances
-        for i in range(round(10*time_mod)):  #Re-orient position and recheck distance throughout progress
+        time.sleep(3)                       #Prevents getting stuck in a loop of rechecking distances
+        for i in range(round(25*time_mod)):  #Re-orient position and recheck distance throughout progress
             dist = distance()
-            if dist <= 24:
+            if dist <= 30:
                 direction()
             else:
                 time.sleep(0.25)
@@ -64,11 +65,11 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 def motion():
         dist = distance() #Need to add some form of error checking here!
         send(goodPorts,['kwkF',0.1],)
-        while dist >= 24:
+        while dist >= 30:
             dist = distance()
             print("Forwards...")
             print("Distance = ", dist, "cm")
-            time.sleep(0.2)
+            time.sleep(0.1)
         else:
             print("\nI am too close to something...")
             direction()
@@ -86,21 +87,18 @@ def start_cat():
 
 def test():
         print("This here is the test function... standby")
-        send(goodPorts,['ksit',time],) #sit
-
-        send(goodPorts,['i', [0, 0, 1, -30], 0.5],) #straight
-        send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left and measure the distance to the obstruction
-        send(goodPorts,['i', [0, 0, 1, -30], 0.5],) #straight
- 
-        print("\nMeasured distance (centimetres)")
-        for i in range(50):
-               print(distance()) 
-               time.sleep(0.2)
-               ser_0 = -i
-               ser_1 = (-i/6.25)-30
-               send(goodPorts,['i', [0, ser_0, 1, ser_1], 0.5],) #attempt to take a sweeping measurement!
+        send(goodPorts,['kwjF',0],) #walk
+        time.sleep(1)
+        for i in range(5)
+            send(goodPorts,['i', [0, 0, 1, -30], 0.5],) #straight
+            send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left 
+            send(goodPorts,['i', [0, 0, 1, -30], 0.5],) #straight
+            send(goodPorts,['i', [0, 50, 1, 38], 0.5],) #Look right
+        send(goodPorts,['ksit',1],) #sit
         start_cat()
-
+        command = input()
+            
+        
 if __name__ == '__main__':
     try:
         '''
