@@ -12,40 +12,10 @@ import sys
 import time
 sys.path.append("..")
 from ardSerial import *
+from motion import *
 from SR04 import *
 
-def direction():
-        dist = distance() 
-        send(goodPorts,['ksit',0.5],)  #SIt, then look straight ahead and measure the distance to the obstruction
-        send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
-        print("\nThe obstruction is... ")
-        print(dist, " cm in front")
-        send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left and measure the distance to the obstruction
-        dist_left = distance()
-        print(dist_left, " cm to the left")
-        send(goodPorts,['i', [0, -50, 1, -38], 0.5],) #Look right and measure the distance to the obstruction
-        dist_right = distance()
-        print(dist_right, " cm to the right")
-        print("Time to find a way around this obstruction...")
-        
-        if dist_left < dist_right:      #When Nybble should deviate right
-            time_mod = dist_left/dist_right
-            print("Time factor (face left) = ", time_mod)
-            time = 8*time_mod
-            send(goodPorts,['kbkL',time],)
-            send(goodPorts,['kwkR',time],)
-            motion()
-        elif dist_left > dist_right:        #When Nybble should deviate ;eft   
-            time_mod = dist_right/dist_left
-            print("Time factor (face right) = ", time_mod)
-            time = 8*time_mod
-            send(goodPorts,['kbkR',time],)
-            send(goodPorts,['kwkL',time],)
-            motion()
-        else: #If the same reading is recorded (in case of error, should not be possible)
-            print("These measurements don't make sense... sleeping now")
-            send(goodPorts,['kbalance',2],)
-            send(goodPorts,['krest',10],) 
+
 
 def Nybble_sleep(): #Shuts down Nybble when the script has finished
         print("\nTerminating... farewell!")
@@ -54,17 +24,7 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         logger.info("finish!")
         os._exit(0)
 
-def motion():
-        dist = distance() #Need to add some form of error checking here!
-        send(goodPorts,['kwkF',0.1],)
-        while dist >= 24:
-            dist = distance()
-            print("Forwards...")
-            print("Distance = ", dist, "cm")
-            time.sleep(0.2)
-        else:
-            print("\nI am too close to something...")
-            direction()
+
             
 def start_cat():
         send(goodPorts,['d',0],) # rest position and shuts off all servos
@@ -84,12 +44,7 @@ def test():
         send(goodPorts,['i', [0, 0, 1, -30], 0.5],) #straight
         send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left and measure the distance to the obstruction
         send(goodPorts,['i', [0, 0, 1, -30], 0.5],) #straight
-        
-
-
-
-
-
+ 
         print("\nMeasured distance (centimetres)")
         for i in range(50):
                print(distance()) 
@@ -120,7 +75,7 @@ if __name__ == '__main__':
 
             if command == "go":
                 print("\nGo command recognised... let's go!")
-                send(goodPorts,['u',1],)
+                send(goodPorts,['u',1],) 
                 send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
                 motion()  #Start walking forwards and attempt to avoid walls
 
