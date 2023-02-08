@@ -16,6 +16,7 @@ from SR04 import *
 
 def direction():
         dist = distance() 
+        print("---------------------changing direction---------------------------")
         send(goodPorts,['ksit',0.5],)  #Sit, then look straight ahead and measure the distance to the obstruction
         send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
         print("\nThe obstruction is... ")
@@ -51,6 +52,7 @@ def direction():
             else:
                 time.sleep(0.25)
                 pass
+        print("------------------------------------------------------------------")
         motion()
              
        
@@ -87,17 +89,53 @@ def start_cat():
 
 def test():
         print("This here is the test function... standby")
-        send(goodPorts,['kwjF',0],) #walk
+        send(goodPorts,['kwkF',0],) #walk
         time.sleep(1)
-        for i in range(5)
+        for i in range(5):
             send(goodPorts,['i', [0, 0, 1, -30], 0.5],) #straight
             send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left 
             send(goodPorts,['i', [0, 0, 1, -30], 0.5],) #straight
             send(goodPorts,['i', [0, 50, 1, 38], 0.5],) #Look right
         send(goodPorts,['ksit',1],) #sit
-        start_cat()
-        command = input()
-            
+        start_cat()         
+        
+def read_inputs():
+        command = input() #Reads serial inputs
+        if command == "go":
+                print("\nGo command recognised... let's go!")
+                send(goodPorts,['u',1],) 
+                send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
+                motion()  #Start walking forwards and attempt to avoid walls
+
+        elif command == "dist": #prints the distance signal of the ultrasonic sensor
+                print("\nMeasured distance (centimetres)")
+                for i in range(10):
+                    print(distance()) 
+                    time.sleep(1)
+                start_cat()
+
+        elif command == "test": #Runs test() once
+                print("\nRunning test()")
+                test()
+                start_cat()
+
+        elif command == "serial": #allows the input of Petoi serial commands
+                serial_comm = 1
+                while serial_comm == 1:
+                    print("\nWaiting for a Petoi serial command... back to return, quit to exit")
+                    command = input()
+                    if command == "quit": #Terminate the code
+                        Nybble_sleep() 
+                    elif command == "back": #Return to main command meny
+                        start_cat()
+                        serial_comm = 0
+                    else: 
+                        send(goodPorts,[command,0],) #Sends an input directly to Nybble. Use Petoi documentation for commands
+                        time.sleep(0.2)
+
+            elif command == "quit":
+                Nybble_sleep() #Terminate the code
+
         
 if __name__ == '__main__':
     try:
@@ -116,42 +154,8 @@ if __name__ == '__main__':
         start_cat()
         
         while True:
-            command = input() #Reads serial inputs
-
-            if command == "go":
-                print("\nGo command recognised... let's go!")
-                send(goodPorts,['u',1],) 
-                send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
-                motion()  #Start walking forwards and attempt to avoid walls
-
-            elif command == "dist": #prints the distance signal of the ultrasonic sensor
-                print("\nMeasured distance (centimetres)")
-                for i in range(10):
-                    print(distance()) 
-                    time.sleep(1)
-                start_cat()
-
-            elif command == "test": #Runs test() once
-                print("\nRunning test()")
-                test()
-                start_cat()
-
-            elif command == "serial": #allows the input of Petoi serial commands
-                serial_comm = 1
-                while serial_comm == 1:
-                    print("\nWaiting for a Petoi serial command... back to return, quit to exit")
-                    command = input()
-                    if command == "quit": #Terminate the code
-                        Nybble_sleep() 
-                    elif command == "back": #Return to main command meny
-                        start_cat()
-                        serial_comm = 0
-                    else: 
-                        send(goodPorts,[command,0],) #Sends an input directly to Nybble. Use Petoi documentation for commands
-                        time.sleep(0.2)
-
-            elif command == "quit":
-                Nybble_sleep() #Terminate the code
+            read_inputs()
+        
         
     except Exception as e:
         logger.info("Exception")
