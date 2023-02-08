@@ -15,10 +15,10 @@ from ardSerial import *
 from SR04 import *
 
 def direction():
-        dist = distance() 
         print("---------------------changing direction---------------------------")
         send(goodPorts,['ksit',0.5],)  #Sit, then look straight ahead and measure the distance to the obstruction
         send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
+        dist = distance() 
         print("The obstruction is... ")
         print(dist, " cm in front")
         send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left and measure the distance to the obstruction
@@ -47,7 +47,7 @@ def direction():
         time.sleep(3)                        #Prevents getting stuck in a loop of rechecking distances
         for i in range(round(25*time_mod)):  #Re-orient position and recheck distance throughout progress
             dist = distance()
-            if dist <= 22:
+            if dist <= 24:
                 direction()
             else:
                 time.sleep(0.25)
@@ -67,7 +67,7 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 def motion():
         dist = distance() #Need to add some form of error checking here!
         send(goodPorts,['kwkF',0.1],)
-        while dist >= 22:
+        while dist >= 24:
             dist = distance()
             print("Distance = ", dist, "cm")
             time.sleep(0.1)
@@ -113,7 +113,6 @@ def test():
         
         print("------------------------------------------------------------------") 
         print("Test completed..")
-        start_cat()
         
 def read_inputs():
         command = input() #Reads serial inputs
