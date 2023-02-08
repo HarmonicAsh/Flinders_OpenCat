@@ -19,7 +19,7 @@ def direction():
         print("---------------------changing direction---------------------------")
         send(goodPorts,['ksit',0.5],)  #Sit, then look straight ahead and measure the distance to the obstruction
         send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
-        print("\nThe obstruction is... ")
+        print("The obstruction is... ")
         print(dist, " cm in front")
         send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left and measure the distance to the obstruction
         dist_left = distance()
@@ -30,12 +30,12 @@ def direction():
           
         if dist_left < dist_right:      #When Nybble should deviate right
             time_mod = dist_left/dist_right
-            print("Time factor (face left) = ", time_mod)
+            print("Time factor (face right) = ", time_mod)
             send(goodPorts,['kbkL',0],)
             
         elif dist_left > dist_right:        #When Nybble should deviate ;eft   
             time_mod = dist_right/dist_left
-            print("Time factor (face right) = ", time_mod)   
+            print("Time factor (face left) = ", time_mod)   
             send(goodPorts,['kbkR',0],)
 
         else: #If the same reading is recorded (in case of error, should not be possible)
@@ -44,10 +44,10 @@ def direction():
             send(goodPorts,['krest',10],) 
             motion()
         
-        time.sleep(3)                       #Prevents getting stuck in a loop of rechecking distances
+        time.sleep(3)                        #Prevents getting stuck in a loop of rechecking distances
         for i in range(round(25*time_mod)):  #Re-orient position and recheck distance throughout progress
             dist = distance()
-            if dist <= 30:
+            if dist <= 22:
                 direction()
             else:
                 time.sleep(0.25)
@@ -67,11 +67,11 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 def motion():
         dist = distance() #Need to add some form of error checking here!
         send(goodPorts,['kwkF',0.1],)
-        while dist >= 30:
+        while dist >= 22:
             dist = distance()
-            print("Forwards...")
             print("Distance = ", dist, "cm")
             time.sleep(0.1)
+            #read_inputs() want the cat to constantly read for inputs, so that we can terminate the process!
         else:
             print("\nI am too close to something...")
             direction()
@@ -133,7 +133,7 @@ def read_inputs():
                         send(goodPorts,[command,0],) #Sends an input directly to Nybble. Use Petoi documentation for commands
                         time.sleep(0.2)
 
-            elif command == "quit":
+        elif command == "quit":
                 Nybble_sleep() #Terminate the code
 
         
