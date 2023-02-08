@@ -73,7 +73,6 @@ def motion():
             time.sleep(0.1)
             #read_inputs() want the cat to constantly read for inputs, so that we can terminate the process!
         else:
-            print("\nI am too close to something...")
             direction()
             
 def start_cat():
@@ -88,16 +87,42 @@ def start_cat():
         print("'test' to operate the function test() as required") 
 
 def test():
-        print("This here is the test function... standby")
-        send(goodPorts,['kwkF',0],) #walk
-        time.sleep(1)
-        for i in range(5):
-            send(goodPorts,['i', [0, 0, 1, -30], 0.5],) #straight
-            send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left 
-            send(goodPorts,['i', [0, 0, 1, -30], 0.5],) #straight
-            send(goodPorts,['i', [0, 50, 1, 38], 0.5],) #Look right
-        send(goodPorts,['ksit',1],) #sit
-        start_cat()         
+        dist = distance() 
+        print("---------------------changing direction---------------------------")
+        send(goodPorts,['ksit',0.5],)  #Sit, then look straight ahead and measure the distance to the obstruction
+        send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
+        print("The obstruction is... ")
+        print(dist, " cm in front")
+        send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left and measure the distance to the obstruction
+        dist_left = distance()
+        print(dist_left, " cm to the left")
+        send(goodPorts,['i', [0, -50, 1, -38], 0.5],) #Look right and measure the distance to the obstruction
+        dist_right = distance()
+        print(dist_right, " cm to the right")
+          
+        if dist_left < dist_right:      #When Nybble should deviate right
+            time_mod = dist_left/dist_right
+            print("Time factor (face right) = ", time_mod)
+                        
+        elif dist_left > dist_right:        #When Nybble should deviate ;eft   
+            time_mod = dist_right/dist_left
+            print("Time factor (face left) = ", time_mod)   
+            
+        else: #If the same reading is recorded (in case of error, should not be possible)
+            print("These measurements don't make sense... potential ultrasonic sensor error")
+            send(goodPorts,['kbalance',2],)
+            send(goodPorts,['krest',10],) 
+            motion()
+        
+        time.sleep(3)                        #Prevents getting stuck in a loop of rechecking distances
+        for i in range(round(25*time_mod)):  #Re-orient position and recheck distance throughout progress
+            dist = distance()
+            if dist <= 22:
+                direction()
+            else:
+                time.sleep(0.25)
+                pass
+        print("------------------------------------------------------------------") 
         
 def read_inputs():
         command = input() #Reads serial inputs
