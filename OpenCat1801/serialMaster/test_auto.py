@@ -15,7 +15,7 @@ from ardSerial import *
 from SR04 import *
 
 def direction():
-        print("---------------------changing direction---------------------------")
+        print("\n---------------------changing direction---------------------------")
         send(goodPorts,['ksit',0.5],)  #Sit, then look straight ahead and measure the distance to the obstruction
         send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
         dist = distance() 
@@ -52,7 +52,7 @@ def direction():
             else:
                 time.sleep(0.25)
                 pass
-        print("------------------------------------------------------------------")
+        print("------------------------------------------------------------------\n")
         motion()
              
        
