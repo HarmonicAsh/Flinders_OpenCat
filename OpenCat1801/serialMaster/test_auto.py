@@ -26,32 +26,27 @@ def direction():
         send(goodPorts,['i', [0, -50, 1, -38], 0.5],) #Look right and measure the distance to the obstruction
         dist_right = distance()
         print(dist_right, " cm to the right")
-                
+          
         if dist_left < dist_right:      #When Nybble should deviate right
-            time = dist_left/dist_right
+            time_mod = dist_left/dist_right
             print("Time factor (face left) = ", time_mod)
-            for i in range(6):
-                send(goodPorts,['kbkL',time_mod],)
-                dist = distance()
-                if dist <= 24:
-                    direction()
-                else:
-                    pass
-            motion()
-
-
+            send(goodPorts,['kbkL',0],)
+            
         elif dist_left > dist_right:        #When Nybble should deviate ;eft   
             time_mod = dist_right/dist_left
-            print("Time factor (face right) = ", time_mod)
-            for i in range(6):
-                send(goodPorts,['kbkR',time_mod],)
-                dist = distance()
-                if dist <= 24:
-                    direction()
-                else:
-                    pass
-            motion()
-               
+            print("Time factor (face right) = ", time_mod)   
+            send(goodPorts,['kbkR',0],)
+        
+        time.sleep(1)                       #Prevents getting stuck in a loop of rechecking distances
+        for i in range(round(10*time_mod)):  #Re-orient position and recheck distance throughout progress
+            dist = distance()
+            if dist <= 24:
+                direction()
+            else:
+                time.sleep(0.25)
+                pass
+        motion()
+             
         else: #If the same reading is recorded (in case of error, should not be possible)
             print("These measurements don't make sense... potential ultrasonic sensor error")
             send(goodPorts,['kbalance',2],)
