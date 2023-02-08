@@ -28,12 +28,12 @@ def direction():
         print(dist_right, " cm to the right")
                 
         if dist_left < dist_right:      #When Nybble should deviate right
-            time_mod = dist_left/dist_right
+            time = dist_left/dist_right
             print("Time factor (face left) = ", time_mod)
             for i in range(6):
                 send(goodPorts,['kbkL',time_mod],)
                 dist = distance()
-                if distance <= 24:
+                if dist <= 24:
                     direction()
                 else:
                     pass
@@ -46,7 +46,7 @@ def direction():
             for i in range(6):
                 send(goodPorts,['kbkR',time_mod],)
                 dist = distance()
-                if distance <= 24:
+                if dist <= 24:
                     direction()
                 else:
                     pass
