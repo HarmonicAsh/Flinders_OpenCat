@@ -21,19 +21,21 @@ def direction():
         send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
         dist = distance
         if dist >= 80:
+            print("The obstruction appears to have moved...")
             motion()
-        print("The obstruction is... ")
-        print(dist, " cm in front")
-        send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left and measure the distance to the obstruction
-        global dist_left 
-        dist_left = distance()
-        print(dist_left, " cm to the left")
-        send(goodPorts,['i', [0, -50, 1, -38], 0.5],) #Look right and measure the distance to the obstruction
-        global dist_right
-        dist_right = distance()
-        print(dist_right, " cm to the right")
-        send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
-        dist = distance() 
+        else:
+            print("The obstruction is... ")
+            print(dist, " cm in front")
+            send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left and measure the distance to the obstruction
+            global dist_left 
+            dist_left = distance()
+            print(dist_left, " cm to the left")
+            send(goodPorts,['i', [0, -50, 1, -38], 0.5],) #Look right and measure the distance to the obstruction
+            global dist_right
+            dist_right = distance()
+            print(dist_right, " cm to the right")
+            send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
+            dist = distance() 
 
         if dist >= 80:
             motion()
