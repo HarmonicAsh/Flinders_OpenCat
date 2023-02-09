@@ -53,7 +53,7 @@ def direction():
 
 def left_until():
         dist = distance()
-        send(goodPorts,['kbkR',1],)
+        send(goodPorts,['kbkR',2],)
         while dist <= 60:
             time.sleep(0.2)
             dist = distance()
@@ -63,7 +63,7 @@ def left_until():
 
 def right_until():
         dist = distance()
-        send(goodPorts,['kbkL',1],)
+        send(goodPorts,['kbkL',2],)
         while dist <=60:
             time.sleep(0.2)
             dist = distance()
@@ -137,10 +137,10 @@ def motion():
             speed_mod = 0.5
             send(goodPorts,['ktrF',1],)
 
-        while dist >= 18:
+        while dist >= 25:
             dist = distance()
             print("Distance = ", dist, "cm")
-            time.sleep(0.005)
+            time.sleep(0.01)
             #read_inputs() want the cat to constantly read for inputs, so that we can terminate the process!
         else:
             direction()
