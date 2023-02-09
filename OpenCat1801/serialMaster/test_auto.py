@@ -35,11 +35,13 @@ def direction():
         print(dist_right, " cm to the right")
 
         if dist_left < dist_right:
-            print("Going right..")
-            go_left()
-        elif dist_left > dist_right:
             print("Going left..")
-            go_right()
+            left_until()
+            #go_left()
+        elif dist_left > dist_right:
+            print("Going right..")
+            right_until()
+            #go_right()
         else:
             print("These measurements don't make sense... check ultrasonic sensor")
             send(goodPorts,['kbalance',2],)
@@ -49,10 +51,25 @@ def direction():
         print("------------------------------------------------------------------\n")
         motion()
 
+def right_until():
+        send(goodPorts,['kbkR',0],)
+        while dist <= 100:
+            time.sleep(0.1)
+        motion()
+
+def left_until():
+        send(goodPorts,['kbkL',0],)
+        while dist <=80:
+            time.sleep(0.1)
+        motion()
+
+
+
+
 def go_right():
         time_mod = dist_right/dist_left
         print("Time factor (face right) = ", time_mod)
-        send(goodPorts,['kbkR',0.75*speed_mod],)
+        send(goodPorts,['kbkR',2+0.5*speed_mod],)
         
         if speed == "1":
             send(goodPorts,['kcrL',0],)
@@ -72,7 +89,7 @@ def go_right():
 def go_left():
         time_mod = dist_left/dist_right
         print("Time factor (face left) = ", time_mod)   
-        send(goodPorts,['kbkL',0.75*speed_mod],)
+        send(goodPorts,['kbkL',2+0.5*speed_mod],)
 
         if speed == "1":
             send(goodPorts,['kcrR',0],)
