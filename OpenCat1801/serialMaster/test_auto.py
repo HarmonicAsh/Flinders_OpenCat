@@ -180,8 +180,10 @@ def read_inputs():
                 motion()  #Start walking forwards and attempt to avoid walls
 
         elif command == "dist": #prints the distance signal of the ultrasonic sensor
+                send(goodPorts,['ksit',0.5],)  #Sit, then look straight ahead and measure the distance to the obstruction
+                send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
                 print("\nMeasured distance (centimetres)")
-                for i in range(10):
+                for i in range(20):
                     print(distance()) 
                     time.sleep(1)
                 start_cat()
