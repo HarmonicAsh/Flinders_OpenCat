@@ -68,7 +68,7 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 
 def motion():
         dist = distance() #Need to add some form of error checking here!
-        send(goodPorts,['kwkF',0.1],)
+        send(goodPorts,[for_,0.1],)
         while dist >= 24:
             dist = distance()
             print("Distance = ", dist, "cm")
@@ -122,24 +122,24 @@ def read_inputs():
                 print("\nGo command recognised... let's go!")
                 send(goodPorts,['u',1],) 
                 send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
-                print("\nGo Set speed from 1 -3")
-                command = input()
-                wait_speed = 0
+                print("Set speed from 1-3")
+                speed = input()
+                wait_speed = 1
                 while wait_speed == 1:
-                    if speed == 1:
-                        for_ = crF
-                        left_ = crL
-                        right_ = crR
+                    if speed == '1':
+                        for_ = 'crF'
+                        left_ = 'crL'
+                        right_ = 'crR'
                         wait_speed=0
-                    elif speed == 2:
-                        for_ = wkF
-                        left_ = wfL
-                        right_ = wkR
+                    elif speed == '2':
+                        for_ = 'wkF'
+                        left_ = 'wfL'
+                        right_ = 'wkR'
                         wait_speed=0
-                    elif speed == 3:
-                        for_ = trF
-                        left_ = trL
-                        right_ = trR
+                    elif speed == '3':
+                        for_ = 'trF'
+                        left_ = 'trL'
+                        right_ = 'trR'
                         wait_speed=0
                     else:
                         print("Invalid input")
