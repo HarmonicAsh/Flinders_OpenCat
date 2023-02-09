@@ -59,7 +59,7 @@ def direction():
         motion()
 
 def random_behaviour():
-        behaviour = random.randint(0,6)
+        behaviour = random.randint(0,7)
         if behaviour == 0:
             send(goodPorts,['kstr',0],)
         elif behaviour == 1:
@@ -76,7 +76,8 @@ def random_behaviour():
         elif behaviour == 5:
             pass
         elif behaviour == 6:
-            send(goodPorts,['kvt',1],)
+            send(goodPorts,['g',0],)# toggle gyroscope
+            send(goodPorts,['kvt',3],)
 
           
 
