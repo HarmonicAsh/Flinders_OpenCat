@@ -61,7 +61,7 @@ def go_right():
         elif speed == "3":
             send(goodPorts,['ktrL',0],)
 
-        for i in range(round(10*time_mod*speed_mod)):  #Re-orient position and recheck distance throughout progress
+        for i in range(round(15*time_mod*speed_mod)):  #Re-orient position and recheck distance throughout progress
             dist = distance()
             if dist <= 24:
                 direction()
@@ -72,7 +72,7 @@ def go_right():
 def go_left():
         time_mod = dist_left/dist_right
         print("Time factor (face left) = ", time_mod)   
-        send(goodPorts,['kbkL',.0.75*speed_mod],)
+        send(goodPorts,['kbkL',0.75*speed_mod],)
 
         if speed == "1":
             send(goodPorts,['kcrR',0],)
@@ -81,7 +81,7 @@ def go_left():
         elif speed == "3":
             send(goodPorts,['ktrR',0],)
         
-        for i in range(round(10*time_mod*speed_mod)):  #Re-orient position and recheck distance throughout progress
+        for i in range(round(15*time_mod*speed_mod)):  #Re-orient position and recheck distance throughout progress
             dist = distance()
             if dist <= 24:
                 direction()
@@ -106,7 +106,7 @@ def motion():
 
         if speed == "1":
             print("attempting speed 1")
-            speed_mod = 3
+            speed_mod = 2
             send(goodPorts,['kcrF',1],)            
         elif speed == "2":
             print("attempting speed 2")
@@ -114,7 +114,7 @@ def motion():
             send(goodPorts,['kwkF',1],)
         elif speed == "3":
             print("attempting speed 3")
-            speed_mod = 1
+            speed_mod = 0.5
             send(goodPorts,['ktrF',1],)
 
         while dist >= 24:
