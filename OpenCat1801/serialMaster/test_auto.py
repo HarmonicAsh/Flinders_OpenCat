@@ -22,6 +22,7 @@ def direction():
         dist = distance()
         if dist >= 80:
             print("The obstruction appears to have moved...")
+            random_behaviour()
             motion()
         else:
             print("The obstruction is... ")
@@ -56,6 +57,22 @@ def direction():
 
         print("------------------------------------------------------------------\n")
         motion()
+
+def random_behaviour():
+        behaviour = random.randint(0,4)
+        if behaviour == 0:
+            send(goodPorts,['kstr',2],)
+        elif behaviour == 1:
+            send(goodPorts,['kbuttUp',2],)
+        elif behaviour == 2:
+            send(goodPorts,['kstr',2],)
+            send(goodPorts,['kbuttUp',2],)
+        elif behaviour == 3:
+            send(goodPorts,['kck',2],)
+        elif behaviour == 4:
+            send(goodPorts,['khi',2],)
+
+          
 
 def left_until():
         time_mod = 1+1*dist_left/dist_right
@@ -133,6 +150,7 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 
 def motion():
         global speed_mod
+
         dist = distance() #Need to add some form of error checking here!
         if speed == "1":
             print("attempting speed 1")
