@@ -54,13 +54,18 @@ def go_left():
         print("Time factor (face right) = ", time_mod)
         send(goodPorts,['kbkL',0],)
         time.sleep(2)
+
         if speed == "1":
             send(goodPorts,['kcrL',0],)
+            speed_mod = 3
         elif speed == "2":
             send(goodPorts,['kwkL',0],)
+            speed_mod = 2
         elif speed == "3":
             send(goodPorts,['ktrL',0],)
-        for i in range(round(20*time_mod)):  #Re-orient position and recheck distance throughout progress
+            speed_mod = 1
+
+        for i in range(round(20*time_mod*speed_mod)):  #Re-orient position and recheck distance throughout progress
             dist = distance()
             if dist <= 24:
                 direction()
