@@ -19,7 +19,7 @@ def direction():
         print("\n---------------------changing direction---------------------------")
         send(goodPorts,['ksit',0.5],)  #Sit, then look straight ahead and measure the distance to the obstruction
         send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
-        dist = distance
+        dist = distance()
         if dist >= 80:
             print("The obstruction appears to have moved...")
             motion()
@@ -58,8 +58,9 @@ def direction():
         motion()
 
 def left_until():
+        time_mod = dist_left/dist_right
         dist = distance()
-        send(goodPorts,['kbkR',2],)
+        send(goodPorts,['kbkR',2+2*time_mod],)
         while dist <= 60:
             time.sleep(0.2)
             dist = distance()
@@ -68,8 +69,9 @@ def left_until():
         motion()
 
 def right_until():
+        time_mod = dist_right/dist_left
         dist = distance()
-        send(goodPorts,['kbkL',2],)
+        send(goodPorts,['kbkL',2+2*time_mod],)
         while dist <=60:
             time.sleep(0.2)
             dist = distance()
