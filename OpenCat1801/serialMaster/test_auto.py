@@ -8,7 +8,7 @@
 #https://wavlist.com/animals-cats-20-wavs/ cat sounds found here <-
 
 
-
+import random
 import sys
 import time
 sys.path.append("..")
@@ -61,16 +61,18 @@ def direction():
 def random_behaviour():
         behaviour = random.randint(0,4)
         if behaviour == 0:
-            send(goodPorts,['kstr',2],)
+            send(goodPorts,['kstr',0],)
         elif behaviour == 1:
-            send(goodPorts,['kbuttUp',2],)
+            send(goodPorts,['kbuttUp',0],)
         elif behaviour == 2:
-            send(goodPorts,['kstr',2],)
-            send(goodPorts,['kbuttUp',2],)
+            send(goodPorts,['kstr',0],)
+            send(goodPorts,['kbuttUp',1],)
         elif behaviour == 3:
-            send(goodPorts,['kck',2],)
+            send(goodPorts,['kck',0],)
         elif behaviour == 4:
-            send(goodPorts,['khi',2],)
+            send(goodPorts,['kck',0],)
+            send(goodPorts,['kbk',2],)
+            send(goodPorts,['kck',0],)
 
           
 
