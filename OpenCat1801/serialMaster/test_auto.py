@@ -95,11 +95,13 @@ def motion():
         print("speed = ", speed)
         if speed == "1":
             print("attempting speed 1")
-            send(goodPorts,['crF',0],)
+            send(goodPorts,['crF',1],)
         elif speed == "2":
-            send(goodPorts,['wkF',0],)
+            print("attempting speed 2")
+            send(goodPorts,['wkF',1],)
         elif speed == "3":
-            send(goodPorts,['trF',0],)
+            print("attempting speed 3")
+            send(goodPorts,['trF',1],)
 
         while dist >= 24:
             dist = distance()
@@ -155,6 +157,7 @@ def read_inputs():
                 send(goodPorts,['u',1],) 
                 send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
                 print("Set speed from 1-3")
+                global speed
                 speed = input()
                 wait_speed = 1
                 while wait_speed == 1:
@@ -200,7 +203,6 @@ if __name__ == '__main__':
         '''
         testSchedule is used to test various serial port commands
         '''
-        speed
         goodPorts = {}
         connectPort(goodPorts)
         t=threading.Thread(target = keepCheckingPort, args = (goodPorts,))
