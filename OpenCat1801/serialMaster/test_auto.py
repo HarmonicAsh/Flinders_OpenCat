@@ -54,17 +54,20 @@ def direction():
 def left_until():
         dist = distance()
         send(goodPorts,['kbkR',1],)
-        while dist <= 100:
-            time.sleep(0.1)
+        while dist <= 60:
+            time.sleep(0.2)
             dist = distance()
+            print("Distance = ", dist, "cm")
+
         motion()
 
 def right_until():
         dist = distance()
         send(goodPorts,['kbkL',1],)
-        while dist <=80:
-            time.sleep(0.1)
+        while dist <=60:
+            time.sleep(0.2)
             dist = distance()
+            print("Distance = ", dist, "cm")
         motion()
 
 
