@@ -92,11 +92,13 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 def motion():
         dist = distance() #Need to add some form of error checking here!
         if speed == "1":
-            send(goodPorts,['crF',0.1],)
+            print("attempting speed 1")
+            send(goodPorts,['crF',0],)
         elif speed == "2":
-            send(goodPorts,['wkF',0.1],)
+            send(goodPorts,['wkF',0],)
         elif speed == "3":
-            send(goodPorts,['trF',0.1],)
+            send(goodPorts,['trF',0],)
+
         while dist >= 24:
             dist = distance()
             print("Distance = ", dist, "cm")
