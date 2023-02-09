@@ -8,6 +8,8 @@
 #https://wavlist.com/animals-cats-20-wavs/ cat sounds found here <-
 
 
+from dis import distb
+from importlib.metadata import distribution, distributions
 from tty import CFLAG
 
 import sys
@@ -24,15 +26,19 @@ def direction():
         print("The obstruction is... ")
         print(dist, " cm in front")
         send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left and measure the distance to the obstruction
+        global dist_left 
         dist_left = distance()
         print(dist_left, " cm to the left")
         send(goodPorts,['i', [0, -50, 1, -38], 0.5],) #Look right and measure the distance to the obstruction
+        global dist_right
         dist_right = distance()
         print(dist_right, " cm to the right")
 
         if dist_left < dist_right:
+            print("Going right..")
             go_left()
         elif dist_left > dist_right:
+            print("Going left..")
             go_right()
         else:
             print("These measurements don't make sense... check ultrasonic sensor")
