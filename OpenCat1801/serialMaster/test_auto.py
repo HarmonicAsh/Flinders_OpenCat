@@ -61,12 +61,12 @@ def go_right():
         elif speed == "3":
             send(goodPorts,['ktrL',0],)
 
-        for i in range(round(15*time_mod*speed_mod)):  #Re-orient position and recheck distance throughout progress
+        for i in range(round(45*time_mod*speed_mod)):  #Re-orient position and recheck distance throughout progress
             dist = distance()
-            if dist <= 24:
+            if dist <= 18:
                 direction()
             else:
-                time.sleep(0.25)
+                time.sleep(0.05)
                 pass
 
 def go_left():
@@ -81,12 +81,12 @@ def go_left():
         elif speed == "3":
             send(goodPorts,['ktrR',0],)
         
-        for i in range(round(15*time_mod*speed_mod)):  #Re-orient position and recheck distance throughout progress
+        for i in range(round(45*time_mod*speed_mod)):  #Re-orient position and recheck distance throughout progress
             dist = distance()
-            if dist <= 24:
+            if dist <= 18:
                 direction()
             else:
-                time.sleep(0.25)
+                time.sleep(0.05)
                 pass
        
 
@@ -117,10 +117,10 @@ def motion():
             speed_mod = 0.5
             send(goodPorts,['ktrF',1],)
 
-        while dist >= 24:
+        while dist >= 18:
             dist = distance()
             print("Distance = ", dist, "cm")
-            time.sleep(0.01)
+            time.sleep(0.005)
             #read_inputs() want the cat to constantly read for inputs, so that we can terminate the process!
         else:
             direction()
