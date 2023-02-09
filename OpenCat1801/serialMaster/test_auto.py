@@ -200,7 +200,7 @@ if __name__ == '__main__':
         '''
         testSchedule is used to test various serial port commands
         '''
-        speed = 0
+        speed
         goodPorts = {}
         connectPort(goodPorts)
         t=threading.Thread(target = keepCheckingPort, args = (goodPorts,))
