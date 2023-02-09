@@ -91,6 +91,8 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 
 def motion():
         dist = distance() #Need to add some form of error checking here!
+        print("Start of motion")
+        print("speed = ", speed)
         if speed == "1":
             print("attempting speed 1")
             send(goodPorts,['crF',0],)
@@ -198,6 +200,7 @@ if __name__ == '__main__':
         '''
         testSchedule is used to test various serial port commands
         '''
+        speed = 0
         goodPorts = {}
         connectPort(goodPorts)
         t=threading.Thread(target = keepCheckingPort, args = (goodPorts,))
