@@ -59,7 +59,7 @@ def direction():
         motion()
 
 def random_behaviour():
-        behaviour = random.randint(0,4)
+        behaviour = random.randint(0,6)
         if behaviour == 0:
             send(goodPorts,['kstr',0],)
         elif behaviour == 1:
@@ -71,8 +71,12 @@ def random_behaviour():
             send(goodPorts,['kck',0],)
         elif behaviour == 4:
             send(goodPorts,['kck',0],)
-            send(goodPorts,['kbk',2],)
-            send(goodPorts,['kck',0],)
+            send(goodPorts,['kbk',1],)
+            send(goodPorts,['kstr',0],)
+        elif behaviour == 5:
+            pass
+        elif behaviour == 6:
+            send(goodPorts,['kvt',1],)
 
           
 
