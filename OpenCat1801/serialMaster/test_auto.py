@@ -29,34 +29,57 @@ def direction():
         send(goodPorts,['i', [0, -50, 1, -38], 0.5],) #Look right and measure the distance to the obstruction
         dist_right = distance()
         print(dist_right, " cm to the right")
-          
-        if dist_left < dist_right:      #When Nybble should deviate right
-            time_mod = dist_left/dist_right
-            print("Time factor (face right) = ", time_mod)
-            send(goodPorts,['kbkL',0],)
-            
-        elif dist_left > dist_right:        #When Nybble should deviate ;eft   
-            time_mod = dist_right/dist_left
-            print("Time factor (face left) = ", time_mod)   
-            send(goodPorts,['kbkR',0],)
 
-        else: #If the same reading is recorded (in case of error, should not be possible)
-            print("These measurements don't make sense... potential ultrasonic sensor error")
+        if dist_left < dist_right:
+            go_left()
+        elif dist_left > dist_right:
+            go_right()
+        else:
+            print("These measurements don't make sense... check ultrasonic sensor")
             send(goodPorts,['kbalance',2],)
-            send(goodPorts,['krest',10],) 
-            motion()
-        
-        time.sleep(3)                        #Prevents getting stuck in a loop of rechecking distances
-        for i in range(round(25*time_mod)):  #Re-orient position and recheck distance throughout progress
+            send(goodPorts,['krest',1],)
+            Nybble_sleep()      
+
+        print("------------------------------------------------------------------\n")
+        motion()
+
+def go_left():
+        time_mod = dist_left/dist_right
+        print("Time factor (face right) = ", time_mod)
+        send(goodPorts,['kbkL',0],)
+        time.sleep(2)
+        if speed == "1":
+            send(goodPorts,['crL',0],)
+        elif speed == "2":
+            send(goodPorts,['wkL',0],)
+        elif speed == "3":
+            send(goodPorts,['trL',0],)
+        for i in range(round(20*time_mod)):  #Re-orient position and recheck distance throughout progress
             dist = distance()
             if dist <= 24:
                 direction()
             else:
                 time.sleep(0.25)
                 pass
-        print("------------------------------------------------------------------\n")
-        motion()
-             
+
+def go_right():
+        time_mod = dist_right/dist_left
+        print("Time factor (face left) = ", time_mod)   
+        send(goodPorts,['kbkR',0],)
+        time.sleep(2)
+        if speed == "1":
+            send(goodPorts,['crR',0],)
+        elif speed == "2":
+            send(goodPorts,['wkR',0],)
+        elif speed == "3":
+            send(goodPorts,['trR',0],)
+        for i in range(round(20*time_mod)):  #Re-orient position and recheck distance throughout progress
+            dist = distance()
+            if dist <= 24:
+                direction()
+            else:
+                time.sleep(0.25)
+                pass
        
 
 def Nybble_sleep(): #Shuts down Nybble when the script has finished
@@ -68,7 +91,12 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 
 def motion():
         dist = distance() #Need to add some form of error checking here!
-        send(goodPorts,[for_,0.1],)
+        if speed == "1":
+            send(goodPorts,['crF',0.1],)
+        elif speed == "2":
+            send(goodPorts,['wkF',0.1],)
+        elif speed == "3":
+            send(goodPorts,['trF',0.1],)
         while dist >= 24:
             dist = distance()
             print("Distance = ", dist, "cm")
@@ -126,23 +154,9 @@ def read_inputs():
                 speed = input()
                 wait_speed = 1
                 while wait_speed == 1:
-                    if speed == '1':
-                        for_ = 'crF'
-                        left_ = 'crL'
-                        right_ = 'crR'
-                        wait_speed=0
-                    elif speed == '2':
-                        for_ = 'wkF'
-                        left_ = 'wfL'
-                        right_ = 'wkR'
-                        wait_speed=0
-                    elif speed == '3':
-                        for_ = 'trF'
-                        left_ = 'trL'
-                        right_ = 'trR'
+                    if speed == '1' or speed == '2' or speed == '3':
                         wait_speed=0
                     else:
-                        print("Invalid input")
                         pass
                 print("Speed ", speed, " selected")
                 motion()  #Start walking forwards and attempt to avoid walls
