@@ -91,8 +91,11 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 
 def motion():
         dist = distance() #Need to add some form of error checking here!
+        send(goodPorts,['wkF',5],)
         print("Start of motion")
         print("speed = ", speed)
+        #while wait_speed == 0:
+
         if speed == "1":
             print("attempting speed 1")
             send(goodPorts,['crF',1],)
@@ -159,6 +162,7 @@ def read_inputs():
                 print("Set speed from 1-3")
                 global speed
                 speed = input()
+                global wait_speed 
                 wait_speed = 1
                 while wait_speed == 1:
                     if speed == '1' or speed == '2' or speed == '3':
