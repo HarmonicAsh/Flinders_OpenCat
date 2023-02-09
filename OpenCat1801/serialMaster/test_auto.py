@@ -35,12 +35,12 @@ def direction():
         print(dist_right, " cm to the right")
 
         if dist_left < dist_right:
-            print("Going left..")
-            left_until()
-            #go_left()
-        elif dist_left > dist_right:
             print("Going right..")
             right_until()
+            #go_left()
+        elif dist_left > dist_right:
+            print("Going left..")
+            left_until()
             #go_right()
         else:
             print("These measurements don't make sense... check ultrasonic sensor")
@@ -51,17 +51,17 @@ def direction():
         print("------------------------------------------------------------------\n")
         motion()
 
-def right_until():
+def left_until():
         dist = distance()
-        send(goodPorts,['kbkR',0],)
+        send(goodPorts,['kbkR',1],)
         while dist <= 100:
             time.sleep(0.1)
             dist = distance()
         motion()
 
-def left_until():
+def right_until():
         dist = distance()
-        send(goodPorts,['kbkL',0],)
+        send(goodPorts,['kbkL',1],)
         while dist <=80:
             time.sleep(0.1)
             dist = distance()
