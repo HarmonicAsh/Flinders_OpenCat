@@ -58,9 +58,10 @@ def direction():
         motion()
 
 def left_until():
-        time_mod = dist_left/dist_right
+        time_mod = 1+1*dist_left/dist_right
+        print("Time delay = ", time_mod)
         dist = distance()
-        send(goodPorts,['kbkR',2+2*time_mod],)
+        send(goodPorts,['kbkR',time_mod],)
         while dist <= 60:
             time.sleep(0.2)
             dist = distance()
@@ -69,7 +70,8 @@ def left_until():
         motion()
 
 def right_until():
-        time_mod = dist_right/dist_left
+        time_mod = 1+1*dist_right/dist_left
+        print("Time delay = ", time_mod)
         dist = distance()
         send(goodPorts,['kbkL',2+2*time_mod],)
         while dist <=60:
