@@ -8,9 +8,9 @@
 #https://wavlist.com/animals-cats-20-wavs/ cat sounds found here <-
 
 
-from dis import distb
-from importlib.metadata import distribution, distributions
-from tty import CFLAG
+#from dis import distb
+#from importlib.metadata import distribution, distributions
+#from tty import CFLAG
 
 import sys
 import time
@@ -100,27 +100,29 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 def motion():
         global speed_mod
         dist = distance() #Need to add some form of error checking here!
-        print("Start of motion")
-        print("speed = ", speed)
-        #while wait_speed == 0:
-
-        if speed == "1":
-            print("attempting speed 1")
-            speed_mod = 2
-            send(goodPorts,['kcrF',1],)            
-        elif speed == "2":
-            print("attempting speed 2")
-            speed_mod = 2
-            send(goodPorts,['kwkF',1],)
-        elif speed == "3":
-            print("attempting speed 3")
-            speed_mod = 0.5
-            send(goodPorts,['ktrF',1],)
-
+        if first_run == 1:
+            print("Start of motion")
+            print("speed = ", speed)
+            if speed == "1":
+                print("attempting speed 1")
+                speed_mod = 2
+                send(goodPorts,['kcrF',1],)
+                first_run=0
+            elif speed == "2":
+                print("attempting speed 2")
+                speed_mod = 2
+                send(goodPorts,['kwkF',1],)
+                first_run=0
+            elif speed == "3":
+                print("attempting speed 3")
+                speed_mod = 0.5
+                send(goodPorts,['ktrF',1],)
+                first_run=0
+       
         while dist >= 18:
             dist = distance()
             print("Distance = ", dist, "cm")
-            time.sleep(0.005)
+            time.sleep(0.01)
             #read_inputs() want the cat to constantly read for inputs, so that we can terminate the process!
         else:
             direction()
@@ -168,6 +170,8 @@ def read_inputs():
         command = input() #Reads serial inputs
         if command == "go":
                 print("\nGo command recognised... let's go!")
+                global first_run
+                first_run = 1
                 send(goodPorts,['u',1],) 
                 send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
                 print("Set speed from 1-3")
