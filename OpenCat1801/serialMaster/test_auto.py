@@ -52,15 +52,15 @@ def direction():
 def go_right():
         time_mod = dist_left/dist_right
         print("Time factor (face right) = ", time_mod)
-        send(goodPorts,['kbkL',0],)
+        send(goodPorts,['kbkR',0],)
         time.sleep(2)
 
         if speed == "1":
             send(goodPorts,['kcrL',0],)
-            speed_mod = 3
+            speed_mod = 6
         elif speed == "2":
             send(goodPorts,['kwkL',0],)
-            speed_mod = 2
+            speed_mod = 3
         elif speed == "3":
             send(goodPorts,['ktrL',0],)
             speed_mod = 1
@@ -76,20 +76,20 @@ def go_right():
 def gp_left():
         time_mod = dist_right/dist_left
         print("Time factor (face left) = ", time_mod)   
-        send(goodPorts,['kbkR',0],)
+        send(goodPorts,['kbkL',0],)
         time.sleep(2)
 
         if speed == "1":
             send(goodPorts,['kcrR',0],)
-            speed_mod = 3
+            speed_mod = 6
         elif speed == "2":
             send(goodPorts,['kwkR',0],)
-            speed_mod = 2
+            speed_mod = 3
         elif speed == "3":
             send(goodPorts,['ktrR',0],)
             speed_mod = 1
 
-        for i in range(round(20*time_mod)):  #Re-orient position and recheck distance throughout progress
+        for i in range(round(20*time_mod*speed_mod)):  #Re-orient position and recheck distance throughout progress
             dist = distance()
             if dist <= 24:
                 direction()
