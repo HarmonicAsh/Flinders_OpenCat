@@ -124,6 +124,7 @@ def read_inputs():
                 send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
                 print("\nGo Set speed from 1 -3")
                 command = input()
+                wait_speed = 0
                 while wait_speed == 1:
                     if speed == 1:
                         for_ = crF
