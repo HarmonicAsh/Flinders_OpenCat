@@ -49,11 +49,11 @@ def go_left():
         send(goodPorts,['kbkL',0],)
         time.sleep(2)
         if speed == "1":
-            send(goodPorts,['crL',0],)
+            send(goodPorts,['kcrL',0],)
         elif speed == "2":
-            send(goodPorts,['wkL',0],)
+            send(goodPorts,['kwkL',0],)
         elif speed == "3":
-            send(goodPorts,['trL',0],)
+            send(goodPorts,['ktrL',0],)
         for i in range(round(20*time_mod)):  #Re-orient position and recheck distance throughout progress
             dist = distance()
             if dist <= 24:
@@ -91,20 +91,19 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 
 def motion():
         dist = distance() #Need to add some form of error checking here!
-        send(goodPorts,['wkF',5],)
         print("Start of motion")
         print("speed = ", speed)
         #while wait_speed == 0:
 
         if speed == "1":
             print("attempting speed 1")
-            send(goodPorts,['crF',1],)
+            send(goodPorts,['kcrF',1],)
         elif speed == "2":
             print("attempting speed 2")
-            send(goodPorts,['wkF',1],)
+            send(goodPorts,['kwkF',1],)
         elif speed == "3":
             print("attempting speed 3")
-            send(goodPorts,['trF',1],)
+            send(goodPorts,['ktrF',1],)
 
         while dist >= 24:
             dist = distance()
