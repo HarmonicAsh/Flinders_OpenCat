@@ -312,14 +312,13 @@ if __name__ == '__main__':
         while True:
             read_inputs()
     
-    finally:
-        send(goodPorts,['krest',0.5],)
-        closeAllSerial(goodPorts)
-        os._exit(0)
-
-        
     except Exception as e:
         logger.info("Exception")
         closeAllSerial(goodPorts)
         os._exit(0)
         raise e
+
+    finally:
+        send(goodPorts,['krest',0.5],)
+        closeAllSerial(goodPorts)
+        os._exit(0)
