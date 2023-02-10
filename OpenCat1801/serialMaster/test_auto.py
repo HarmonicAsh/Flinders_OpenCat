@@ -18,6 +18,7 @@ from SR04 import *
 
 def load_sound():
         mixer.init()  #Initialise pigame mixer for audio
+        print("Loading sounds...")
         global cat1
         global cat2
         global cat3
@@ -28,6 +29,7 @@ def load_sound():
         cat3 = mixer.Sound("cat3.wav")   #load wav files
         cat4 = mixer.Sound("cat4.wav")   #load wav files
         cat5 = mixer.Sound("cat5.wav")   #load wav files
+        print("Loading sounds completed./n")
 
 def direction():
         print("\n---------------------changing direction---------------------------")
@@ -96,16 +98,16 @@ def random_behaviour():
             send(goodPorts,['kvt',3],)
 
 def cat_meow(int):
-     if int == 0:
-         mixer.Sound.play(cat1)
-     elif int == 1:
-         mixer.Sound.play(cat2)
-     elif int == 2:
-         mixer.Sound.play(cat3)
-     elif int == 3:
-         mixer.Sound.play(cat4)
-     elif int == 4:
-         mixer.Sound.play(cat5)
+        if int == 0:
+            mixer.Sound.play(cat1)
+        elif int == 1:
+            mixer.Sound.play(cat2)
+        elif int == 2:
+            mixer.Sound.play(cat3)
+        elif int == 3:
+            mixer.Sound.play(cat4)
+        elif int == 4:
+            mixer.Sound.play(cat5)
      
 
 def left_until():
