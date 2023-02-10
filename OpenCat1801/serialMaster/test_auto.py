@@ -11,10 +11,10 @@
 import random
 import sys
 import time
+from pygame import mixer
 sys.path.append("..")
 from ardSerial import *
 from SR04 import *
-from Audio import *
 
 def direction():
         print("\n---------------------changing direction---------------------------")
@@ -61,6 +61,7 @@ def direction():
 
 def random_behaviour():
         behaviour = random.randint(0,7)
+        cat_meow(random.randint(0,4))
         if behaviour == 0:
             send(goodPorts,['kstr',0],)
         elif behaviour == 1:
@@ -80,7 +81,19 @@ def random_behaviour():
             send(goodPorts,['g',0],)# toggle gyroscope
             send(goodPorts,['kvt',3],)
 
-          
+def cat_meow(int):
+     if int == 0:
+         mixer.Sound.play(cat1)
+     elif int == 1:
+         mixer.Sound.play(cat2)
+     elif int == 2:
+         mixer.Sound.play(cat3)
+     elif int == 3:
+         mixer.Sound.play(cat4)
+
+def meow(int):
+    if int == 0:
+        mixer.Sound.play(cat2)         
 
 def left_until():
         time_mod = 1+1*dist_left/dist_right
@@ -276,6 +289,15 @@ if __name__ == '__main__':
         '''
         testSchedule is used to test various serial port commands
         '''
+        mixer.init()  #Initialise pigame mixer for audio
+        global cat1
+        global cat2
+        global cat3
+        global cat4
+        cat1 = mixer.Sound("cat1.wav")   #load wav files
+        cat2 = mixer.Sound("cat2.wav")   #load wav files
+        cat3 = mixer.Sound("cat3.wav")   #load wav files
+        cat4 = mixer.Sound("cat4.wav")   #load wav files
         goodPorts = {}
         connectPort(goodPorts)
         t=threading.Thread(target = keepCheckingPort, args = (goodPorts,))
@@ -289,7 +311,12 @@ if __name__ == '__main__':
         
         while True:
             read_inputs()
-        
+    
+    finally:
+        send(goodPorts,['krest',0.5],)
+        closeAllSerial(goodPorts)
+        os._exit(0)
+
         
     except Exception as e:
         logger.info("Exception")
