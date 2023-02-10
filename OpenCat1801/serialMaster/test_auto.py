@@ -14,6 +14,7 @@ import time
 sys.path.append("..")
 from ardSerial import *
 from SR04 import *
+from Audio import *
 
 def direction():
         print("\n---------------------changing direction---------------------------")
