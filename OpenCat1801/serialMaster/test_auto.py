@@ -16,6 +16,19 @@ sys.path.append("..")
 from ardSerial import *
 from SR04 import *
 
+def load_sound():
+        mixer.init()  #Initialise pigame mixer for audio
+        global cat1
+        global cat2
+        global cat3
+        global cat4
+        global cat5
+        cat1 = mixer.Sound("cat1.wav")   #load wav files
+        cat2 = mixer.Sound("cat2.wav")   #load wav files
+        cat3 = mixer.Sound("cat3.wav")   #load wav files
+        cat4 = mixer.Sound("cat4.wav")   #load wav files
+        cat5 = mixer.Sound("cat5.wav")   #load wav files
+
 def direction():
         print("\n---------------------changing direction---------------------------")
         send(goodPorts,['ksit',0.5],)  #Sit, then look straight ahead and measure the distance to the obstruction
@@ -74,6 +87,7 @@ def random_behaviour():
         elif behaviour == 4:
             send(goodPorts,['kck',0],)
             send(goodPorts,['kbk',1],)
+            cat_meow(random.randint(0,2))
             send(goodPorts,['kstr',0],)
         elif behaviour == 5:
             pass
@@ -90,10 +104,9 @@ def cat_meow(int):
          mixer.Sound.play(cat3)
      elif int == 3:
          mixer.Sound.play(cat4)
-
-def meow(int):
-    if int == 0:
-        mixer.Sound.play(cat2)         
+     elif int == 4:
+         mixer.Sound.play(cat5)
+     
 
 def left_until():
         time_mod = 1+1*dist_left/dist_right
@@ -117,9 +130,6 @@ def right_until():
             dist = distance()
             print("Distance = ", dist, "cm")
         motion()
-
-
-
 
 def go_right():
         time_mod = dist_right/dist_left
@@ -161,7 +171,6 @@ def go_left():
                 time.sleep(0.05)
                 pass
        
-
 def Nybble_sleep(): #Shuts down Nybble when the script has finished
         print("\nTerminating... farewell!")
         send(goodPorts,['krest',1],)  #Rest
@@ -237,7 +246,7 @@ def read_inputs():
         command = input() #Reads serial inputs
         if command == "go":
                 print("\nGo command recognised... let's go!")
-                send(goodPorts,['u',1],) 
+                cat_meow(4) 
                 send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
                 print("Set speed from 1-3")
                 global speed
@@ -289,15 +298,7 @@ if __name__ == '__main__':
         '''
         testSchedule is used to test various serial port commands
         '''
-        mixer.init()  #Initialise pigame mixer for audio
-        global cat1
-        global cat2
-        global cat3
-        global cat4
-        cat1 = mixer.Sound("cat1.wav")   #load wav files
-        cat2 = mixer.Sound("cat2.wav")   #load wav files
-        cat3 = mixer.Sound("cat3.wav")   #load wav files
-        cat4 = mixer.Sound("cat4.wav")   #load wav files
+        load_sound()
         goodPorts = {}
         connectPort(goodPorts)
         t=threading.Thread(target = keepCheckingPort, args = (goodPorts,))
