@@ -218,11 +218,11 @@ def start_cat():
         print("'quit' to terminate...") 
         print("'test' to operate the function test() as required") #Start cat function (lists main menu options)
 
-def audio_test(): #Test audio output
+def audio_test():
         for i in range(4):
-            print("Testing meoq number ", i)
-            cat_meow(random.randint(i))
-            time.sleep(2) #Test_autio (Tests the playback of audio)
+            print("Testing meow number ", i)
+            cat_meow(i)
+            time.sleep(2) #Test_audio (Tests the playback of audio)
 
 def test():
         dist = distance() 
@@ -250,7 +250,7 @@ def test():
             pass
         
         print("------------------------------------------------------------------") 
-        print("Test completed..")  #Test function (Runs test from main menu. Replace this with new code to quickly test)
+        print("Test completed..") #Test function (Runs test from main menu. Replace this with new code to quickly test)
         
 def read_inputs(): 
         command = input() #Reads serial inputs
@@ -285,7 +285,7 @@ def read_inputs():
                 test()
                 start_cat()
 
-        elif command == "audio": #Runs test() once
+        elif command == "sound": #Runs test() once
                 print("\nRunning audio test()")
                 audio_test()
                 start_cat()
