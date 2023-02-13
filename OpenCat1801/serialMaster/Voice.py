@@ -17,3 +17,5 @@ while True:
         audio = r.listen(source)
     words = r.recognize_google(audio)
     print(words)
+
+

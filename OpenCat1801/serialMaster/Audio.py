@@ -4,8 +4,11 @@ import time
 from pygame import mixer
 
 mixer.init()  #Initialise pigame mixer
+cat1 = mixer.Sound("cat1.wav")   #load wav files
 cat2 = mixer.Sound("cat2.wav")   #load wav files
-mixer.Sound.play(cat2)
+cat3 = mixer.Sound("cat3.wav")   #load wav files
+cat4 = mixer.Sound("cat4.wav")   #load wav files
+
 time.sleep(1)
 
 
