@@ -263,9 +263,9 @@ def test():
         print("------------------------------------------------------------------") 
         print("Test completed..") #Test function (Runs test from main menu. Replace this with new code to quickly test)
 
-def gyro_toggle(opt):
+def gyro_toggle(int):
         print("Running gyroscope toggle")
-        if opt == 0:
+        if int == 0:
             if gyro_status == 0:
                 print("Gyroscope already inactive")
                 
@@ -273,14 +273,14 @@ def gyro_toggle(opt):
                 send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
                 gyro_status = 0
                 print("Gyroscope deactive (disabled)")
-        elif opt == 1:
+        elif int == 1:
             if gyro_status == 0:
                 send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
                 gyro_status = 1
                 print("Gyroscope activated (enabled)")
             else:
                 print("Gyroscope already active")
-        elif opt == 2:
+        elif int == 2:
             if gyro_status == 0:
                 send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
                 gyro_status = 1
@@ -363,7 +363,7 @@ if __name__ == '__main__':
         parallel = False
         time.sleep(1)
         global gyro_status 
-        gyro_status = 0 #gyro is active
+        gyro_status = 0 #gyro is initially inactive
         gyro_toggle(1) # switch gyroscope on (begins off)
         send(goodPorts,['d',1],) # rest position and shuts off all servos
         send(goodPorts,['z',1],) # disable random behaviour
