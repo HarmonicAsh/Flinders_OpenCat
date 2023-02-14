@@ -205,15 +205,12 @@ def motion():
         while dist >= 25:
             dist = distance()
             print("Distance = ", dist, "cm")
-            time.sleep(0.005)
-            while dist >= 50:
-                gyro_toggle(0)
-                dist = distance()
-                print("Distance = ", dist, "cm")
-                time.sleep(0.005)
-            else:
+            time.sleep(0.01)
+
+            if dist >= 60 and gyro_status == 0:
                 gyro_toggle(1)
-            #read_inputs() want the cat to constantly read for inputs, so that we can terminate the process!
+            elif dist < 50 and gyro_status == 1:
+                gyro_toggle(0)
         else:
             direction() #Motion (Starts the cat moving forwards, based on speed setting)
             
