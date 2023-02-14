@@ -78,11 +78,7 @@ def direction():
 
 def random_behaviour():
         behaviour = random.randint(0,7)
-        rand_gyro = random.randint(0,4)
-        if rand_gyro == 0:
-            gyro_toggle(2)
-        else:
-            pass
+                
         cat_meow(random.randint(0,4))
         if behaviour == 0:
             send(goodPorts,['kstr',0],)
@@ -186,7 +182,9 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         os._exit(0) #Nybble_sleep (Puts the cat into a shutdown state)
 
 def motion():
+        global dist_min
         global speed_mod
+        gyro_toggle(0)
 
         dist = distance() #Need to add some form of error checking here!
         if speed == "1":
@@ -206,11 +204,18 @@ def motion():
             dist = distance()
             print("Distance = ", dist, "cm")
             time.sleep(0.01)
+            if dist > distance():
+                dist_min = dist
+            else:
+               pass
+            
 
-            if dist >= 60 and gyro_status == 0:
+            #if dist >= 60 and gyro_status == 1:
+            #    gyro_toggle(0)
+            if dist_min < 50 and gyro_status == 0:
                 gyro_toggle(1)
-            elif dist < 50 and gyro_status == 1:
-                gyro_toggle(0)
+            else:
+                pass
         else:
             direction() #Motion (Starts the cat moving forwards, based on speed setting)
             
@@ -291,7 +296,7 @@ def gyro_toggle(int):
             else:
                 send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
                 gyro_status = 0
-                print("Gyroscope deactivated (toggled)")
+                print("Gyroscope deactivated (toggled)") #Gyro_toggle (toggles gyroscope)
      
   
         
