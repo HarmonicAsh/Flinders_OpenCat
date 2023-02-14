@@ -108,11 +108,11 @@ def cat_meow(int):
             mixer.Sound.play(cat3)
         elif int == 3:
             mixer.Sound.play(cat4)
-        elif int == 4:
-            mixer.Sound.play(cat5) #Cat_meow (Use to make the cat meow)     
+        elif int == 4: #File 4 currently has problems, using 3 again instead
+            mixer.Sound.play(cat3) #Cat_meow (Use to make the cat meow)     
 
 def left_until():
-        time_mod = 1+1*dist_right/dist_left
+        time_mod = 0.5+1*dist_right/dist_left
         print("Time delay = ", time_mod)
         dist = distance()
         send(goodPorts,['kbkR',time_mod],)
@@ -124,7 +124,7 @@ def left_until():
         motion() #Left_until (The cat will turn left until the obstruction is nolonger detected)
 
 def right_until():
-        time_mod = 1+1*dist_left/dist_right
+        time_mod = 0.5+1*dist_left/dist_right
         print("Time delay = ", time_mod)
         dist = distance()
         send(goodPorts,['kbkL',2+2*time_mod],)
@@ -257,6 +257,7 @@ def read_inputs():
         if command == "go":
                 print("\nGo command recognised... let's go!")
                 send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
+                cat_meow(3)
                 print("Set speed from 1-3")
                 global speed
                 speed = input()
