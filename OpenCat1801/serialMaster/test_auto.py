@@ -206,8 +206,11 @@ def motion():
             dist = distance()
             print("Distance = ", dist, "cm")
             time.sleep(0.005)
-            if dist >= 50:
+            while dist >= 50:
                 gyro_toggle(0)
+                dist = distance()
+                print("Distance = ", dist, "cm")
+                time.sleep(0.005)
             else:
                 gyro_toggle(1)
             #read_inputs() want the cat to constantly read for inputs, so that we can terminate the process!
@@ -260,23 +263,29 @@ def test():
         print("------------------------------------------------------------------") 
         print("Test completed..") #Test function (Runs test from main menu. Replace this with new code to quickly test)
 
-def gyro_toggle(int):
-        if int == 0 and gyro_status == 1:
+def gyro_toggle(opt):
+        if opt == 0 and gyro_status == 1:
             send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
             gyro_status = 0
             print("Gyroscope deactivated (disabled)")
-        elif int == 1 and gyro_status == 0:
+        elif opt == 1 and gyro_status == 0:
             send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
             gyro_status = 1
-            print("Gyroscope deactivated (enabled)")
-        elif int == 2 and gyro_status == 0:
+            print("Gyroscope activated (enabled)")
+        elif opt == 2 and gyro_status == 0:
             send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
             gyro_status = 1
             print("Gyroscope enabled (toggled)")
-        elif int == 2 and gyro_status == 1:
+        elif opt == 2 and gyro_status == 1:
             send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
             gyro_status = 0
             print("Gyroscope deactivated (toggled)")
+        else:
+            if gyro_status == 0:
+                print("Gyroscope is already deactivate")
+            elif gyro_status == 1:
+                print("Gyroscope is already active")
+
   
         
 def read_inputs(): 
@@ -349,11 +358,12 @@ if __name__ == '__main__':
         t.start()
         parallel = False
         time.sleep(1)
-        send(goodPorts,['g',0],)# switch gyroscope on (begins off)
+        global gyro_status 
+        gyro_status = 0 #gyro is active
+        gyro_toggle(1) # switch gyroscope on (begins off)
         send(goodPorts,['d',1],) # rest position and shuts off all servos
         send(goodPorts,['z',1],) # disable random behaviour
-        global gyro_status 
-        gyro_status = 1 #gyro is active
+        
         start_cat()
         
         while True:
