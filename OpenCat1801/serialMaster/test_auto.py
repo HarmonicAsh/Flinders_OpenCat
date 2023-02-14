@@ -264,28 +264,31 @@ def test():
         print("Test completed..") #Test function (Runs test from main menu. Replace this with new code to quickly test)
 
 def gyro_toggle(opt):
-        if opt == 0 and gyro_status == 1:
-            send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
-            gyro_status = 0
-            print("Gyroscope deactivated (disabled)")
-        elif opt == 1 and gyro_status == 0:
-            send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
-            gyro_status = 1
-            print("Gyroscope activated (enabled)")
-        elif opt == 2 and gyro_status == 0:
-            send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
-            gyro_status = 1
-            print("Gyroscope enabled (toggled)")
-        elif opt == 2 and gyro_status == 1:
-            send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
-            gyro_status = 0
-            print("Gyroscope deactivated (toggled)")
-        else:
+        if opt == 0:
             if gyro_status == 0:
-                print("Gyroscope is already deactivate")
-            elif gyro_status == 1:
-                print("Gyroscope is already active")
-
+                print("Gyroscope already inactive")
+                
+            else:
+                send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
+                gyro_status = 0
+                print("Gyroscope deactive (disabled)")
+        elif opt == 1:
+            if gyro_status == 0:
+                send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
+                gyro_status = 1
+                print("Gyroscope activated (enabled)")
+            else:
+                print("Gyroscope already active")
+        elif opt == 2:
+            if gyro_status == 0:
+                send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
+                gyro_status = 1
+                print("Gyroscope enabled (toggled)")
+            else:
+                send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
+                gyro_status = 0
+                print("Gyroscope deactivated (toggled)")
+     
   
         
 def read_inputs(): 
