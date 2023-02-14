@@ -78,6 +78,11 @@ def direction():
 
 def random_behaviour():
         behaviour = random.randint(0,7)
+        rand_gyro = random.randint(0,4)
+        if rand_gyro == 0:
+            gyro_toggle(2)
+        else:
+            pass
         cat_meow(random.randint(0,4))
         if behaviour == 0:
             send(goodPorts,['kstr',0],)
@@ -96,7 +101,6 @@ def random_behaviour():
         elif behaviour == 5:
             pass
         elif behaviour == 6:
-            send(goodPorts,['g',0],)# toggle gyroscope
             send(goodPorts,['kvt',3],) #Random_behaviour (Code for the cat to randomly "behave" differently, when presented with an obstruction)
 
 def cat_meow(int):
@@ -108,7 +112,7 @@ def cat_meow(int):
             mixer.Sound.play(cat3)
         elif int == 3:
             mixer.Sound.play(cat4)
-        elif int == 4: #File 4 currently has problems, using 3 again instead
+        elif int == 4: #File 4 currently has problems, using 3 again instead    
             mixer.Sound.play(cat3) #Cat_meow (Use to make the cat meow)     
 
 def left_until():
@@ -201,7 +205,11 @@ def motion():
         while dist >= 25:
             dist = distance()
             print("Distance = ", dist, "cm")
-            time.sleep(0.01)
+            time.sleep(0.005)
+            if dist >= 50:
+                gyro_toggle(0)
+            else:
+                gyro_toggle(1)
             #read_inputs() want the cat to constantly read for inputs, so that we can terminate the process!
         else:
             direction() #Motion (Starts the cat moving forwards, based on speed setting)
@@ -251,6 +259,25 @@ def test():
         
         print("------------------------------------------------------------------") 
         print("Test completed..") #Test function (Runs test from main menu. Replace this with new code to quickly test)
+
+def gyro_toggle(int):
+        if int == 0 and gyro_status == 1:
+            send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
+            gyro_status = 0
+            print("Gyroscope deactivated (disabled)")
+        elif int == 1 and gyro_status == 0:
+            send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
+            gyro_status = 1
+            print("Gyroscope deactivated (enabled)")
+        elif int == 2 and gyro_status == 0:
+            send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
+            gyro_status = 1
+            print("Gyroscope enabled (toggled)")
+        elif int == 2 and gyro_status == 1:
+            send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
+            gyro_status = 0
+            print("Gyroscope deactivated (toggled)")
+  
         
 def read_inputs(): 
         command = input() #Reads serial inputs
@@ -325,6 +352,8 @@ if __name__ == '__main__':
         send(goodPorts,['g',0],)# switch gyroscope on (begins off)
         send(goodPorts,['d',1],) # rest position and shuts off all servos
         send(goodPorts,['z',1],) # disable random behaviour
+        global gyro_status 
+        gyro_status = 1 #gyro is active
         start_cat()
         
         while True:
