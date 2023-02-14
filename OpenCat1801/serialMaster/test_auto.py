@@ -183,6 +183,7 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 
 def motion():
         global dist_min
+        dist_min = distance()
         global speed_mod
         gyro_toggle(0)
 
@@ -204,14 +205,11 @@ def motion():
             dist = distance()
             print("Distance = ", dist, "cm")
             time.sleep(0.01)
-            if dist > distance():
+            if dist < dist_min:
                 dist_min = dist
             else:
-               pass
-            
-
-            #if dist >= 60 and gyro_status == 1:
-            #    gyro_toggle(0)
+                pass
+           
             if dist_min < 50 and gyro_status == 0:
                 gyro_toggle(1)
             else:
