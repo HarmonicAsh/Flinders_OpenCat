@@ -265,6 +265,12 @@ def test():
 
 def gyro_toggle(int):
         print("Running gyroscope toggle")
+        if int == 3: #Initial setup
+            global gyro_status 
+            send(goodPorts,['g',0],)# toggle gyroscope (increases cat speed)
+            gyro_status = 1
+            print("Gyroscope activated (enabled)")
+
         if int == 0:
             if gyro_status == 0:
                 print("Gyroscope already inactive")
@@ -362,9 +368,7 @@ if __name__ == '__main__':
         t.start()
         parallel = False
         time.sleep(1)
-        global gyro_status 
-        gyro_status = 0 #gyro is initially inactive
-        gyro_toggle(1) # switch gyroscope on (begins off)
+        gyro_toggle(3) # switch gyroscope on (begins off), runs startup code
         send(goodPorts,['d',1],) # rest position and shuts off all servos
         send(goodPorts,['z',1],) # disable random behaviour
         
