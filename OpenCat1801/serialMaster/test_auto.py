@@ -256,7 +256,6 @@ def read_inputs():
         command = input() #Reads serial inputs
         if command == "go":
                 print("\nGo command recognised... let's go!")
-                cat_meow(4) 
                 send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
                 print("Set speed from 1-3")
                 global speed
