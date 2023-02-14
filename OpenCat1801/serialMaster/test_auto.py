@@ -264,6 +264,7 @@ def test():
         print("Test completed..") #Test function (Runs test from main menu. Replace this with new code to quickly test)
 
 def gyro_toggle(opt):
+        print("Running gyroscope toggle")
         if opt == 0:
             if gyro_status == 0:
                 print("Gyroscope already inactive")
