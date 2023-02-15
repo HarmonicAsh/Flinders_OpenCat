@@ -278,9 +278,7 @@ def test(int):
         dist_av(0)
         while True:
             dist_av(1)
-            time.sleep(0.25)
-
-        
+            time.sleep(0.25)    
         
   
 
@@ -323,14 +321,13 @@ def init_setup():
         
         
 def read_inputs():
-        dist_arr = [0, 0, 0, 0, 0]
         global dist_arr
+        dist_arr = [0, 0, 0, 0, 0]
         global speed
         global wait_speed
         global arr_pos
         arr_pos = 0
         global has_filled
-        global dist_arr
         has_filled = 0
         command = input() #Reads serial inputs
         if command == "go":
