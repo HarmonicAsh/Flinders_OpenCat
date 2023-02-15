@@ -226,22 +226,16 @@ def prep_arr():
         dist_arr = [0, 0, 0, 0, 0]
         for i in range(5):
             dist_arr[i] = distance()
-            time.sleep(0.01)
+            time.sleep(0.1)
             print("Distance ", i, " = ", dist_arr[i])
             arr_pos = 0
 
 def dist_av():
-        print("Beginning dist_av")
-        while len(dist_arr) <=5:
-             dist_arr.append(distance())
-             time.sleep(0.01)
-
-        print("Initial array full..")
-        
         if arr_pos == 5:
             arr_pos = 0
         else:
             pass
+
         dist_arr[arr_pos] = distance()
 
         for i in range (5):
@@ -273,7 +267,12 @@ def audio_test():
             time.sleep(2) #Test_audio (Tests the playback of audio)
 
 def test():
+        send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
         prep_arr()
+        while True:
+            dist_av()
+        else:
+            pass
         
 
 def gyro_toggle(int):
@@ -325,7 +324,6 @@ def read_inputs():
                 arr_pos = 0
                 global has_5
                 global dist_arr
-                dist_arr = []
                 has_5 = 0
                 wait_speed = 1
                 while wait_speed == 1:
