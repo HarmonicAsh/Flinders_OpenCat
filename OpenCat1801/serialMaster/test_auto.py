@@ -222,10 +222,11 @@ def motion():
             direction() #Motion (Starts the cat moving forwards, based on speed setting)
 
 def dist_av():
-        if has_5 == 0:
-            for i in range (5):
-                dist_arr[i] = distance()
-                time.sleep(0.01)
+        while len(dist_arr) <=5:
+             dist_arr.append(distance())
+             time.sleep(0.01)
+
+        print("Initial array full..")
         
         if arr_pos == 5:
             arr_pos = 0
@@ -315,6 +316,8 @@ def read_inputs():
                 global arr_pos
                 arr_pos = 0
                 global has_5
+                global dist_arr
+                dist_arr = []
                 has_5 = 0
                 wait_speed = 1
                 while wait_speed == 1:
