@@ -223,15 +223,6 @@ def motion():
 
         
 def dist_av():
-        if has_filled == 0:
-            dist_arr = [0, 0, 0, 0, 0]
-            for i in range(5):
-                dist_arr[i] = distance()
-                time.sleep(0.1)
-                print("Distance ", i, " = ", dist_arr[i])
-                arr_pos = 0
-            has_filled = 1
-
         if arr_pos == 5:
             arr_pos = 0
         else:
@@ -248,6 +239,14 @@ def dist_av():
         total = 0
         time.sleep(0.01)
         return dist
+
+def prep_arr():
+        dist_arr = [0, 0, 0, 0, 0]
+        for i in range(5):
+            dist_arr[i] = distance()
+            time.sleep(0.1)
+            print("Distance ", i, " = ", dist_arr[i])
+     
             
 def start_cat():
         send(goodPorts,['d',0],) # rest position and shuts off all servos
@@ -269,6 +268,7 @@ def audio_test():
 
 def test():
         send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
+        arr_pos = 0
         prep_arr()
         while True:
             dist = dist_av()
@@ -308,7 +308,7 @@ def gyro_toggle(int):
                 gyro_status = 0
                 print("Gyroscope deactivated (toggled)") #Gyro_toggle (toggles gyroscope)
      
- def init_setup():
+def init_setup():
         global speed
         global wait_speed
         global arr_pos
@@ -318,7 +318,7 @@ def gyro_toggle(int):
         has_filled = 0
         
         
-def read_inputs:
+def read_inputs():
         init_setup()
         command = input() #Reads serial inputs
         if command == "go":
