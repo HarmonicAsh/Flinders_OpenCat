@@ -185,6 +185,7 @@ def motion():
         gyro_toggle(0)
         print("Motion command given..") 
         dist = distance() #Need to add some form of error checking here!
+        print("Distance = ", dist)
 
         if speed == "1":
             print("attempting speed 1")
@@ -214,10 +215,10 @@ def dist_av():
         if arr_pos == 5:
             arr_pos = 0
         else:
-            dist[arr_pos] = distance()
+            dist_arr[arr_pos] = distance()
 
         for i in range (5):
-            total += dist[i]
+            total += dist_arr[i]
         else:
             pass
         dist = total/5
