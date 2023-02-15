@@ -266,7 +266,7 @@ def audio_test():
             cat_meow(i)
             time.sleep(2) #Test_audio (Tests the playback of audio)
 
-def test(int):
+def dist_av(int):
         print(int)
         send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
         if int == 0:
@@ -278,22 +278,30 @@ def test(int):
             arr_pos = 0
             total = 0
         
-        print("Array full..")
-        dist_arr[arr_pos] = distance()
-        for i in range (5):
-            total += dist_arr[i]
-        
-        dist = total/5
-        
-        print("Distance = ", dist, "cm (internal calc)")
-        
-        time.sleep(0.01)
-        total = 0
-        arr_pos += 1
-        if arr_pos == 5:
-            arr_pos = 0
         else:
-            pass
+            print("Array full..")
+            dist_arr[arr_pos] = distance()
+            for i in range (5):
+                total += dist_arr[i]
+        
+            dist = total/5
+            print("Distance = ", dist, "cm (internal calc)")
+            time.sleep(0.01)
+            total = 0
+            arr_pos += 1
+            if arr_pos == 5:
+                arr_pos = 0
+            else:
+                pass
+        return dist
+
+
+
+def test(int):
+        dist_av(0)
+
+        
+        
   
 
 def gyro_toggle(int):
