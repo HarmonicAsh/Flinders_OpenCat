@@ -281,6 +281,7 @@ def dist_av(int):
             total = 0
         
         elif int == 1:
+            total = 0
             print("Array full..")
             dist_arr[arr_pos] = distance()
             print("Updated array number")
@@ -290,7 +291,6 @@ def dist_av(int):
             dist = total/5
             print("Distance = ", dist, "cm (internal calc)")
             time.sleep(0.01)
-            total = 0
             arr_pos += 1
             if arr_pos == 5:
                 arr_pos = 0
