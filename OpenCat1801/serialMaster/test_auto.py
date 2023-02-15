@@ -206,8 +206,9 @@ def motion():
 
         while dist >= 25:
             #dist_av()
-            dist = distance()
-            print("Distance = ", dist, "cm")
+            dist = dist_av(0)
+            #dist = distance()
+            #print("Distance = ", dist, "cm")
             time.sleep(0.01)
             if dist < dist_min:
                 dist_min = dist
