@@ -206,7 +206,7 @@ def motion():
 
         while dist >= 25:
             #dist_av()
-            dist = dist_av(0)
+            dist = dist_av(1)
             #dist = distance()
             #print("Distance = ", dist, "cm")
             time.sleep(0.01)
@@ -318,6 +318,10 @@ def gyro_toggle(int):
                 print("Gyroscope deactivated (toggled)") #Gyro_toggle (toggles gyroscope)
      
 def init_setup():
+        
+        
+        
+def read_inputs():
         global speed
         global wait_speed
         global arr_pos
@@ -325,10 +329,6 @@ def init_setup():
         global has_filled
         global dist_arr
         has_filled = 0
-        
-        
-def read_inputs():
-        init_setup()
         command = input() #Reads serial inputs
         if command == "go":
                 print("\nGo command recognised... let's go!")
