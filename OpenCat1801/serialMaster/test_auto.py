@@ -188,7 +188,7 @@ def motion():
         global dist_min
         dist_min = distance()
         global speed_mod
-        gyro_toggle(0)
+        gyro_toggle(1)
 
         dist = distance() #Need to add some form of error checking here!
         if speed == "1":
@@ -205,7 +205,7 @@ def motion():
             send(goodPorts,['ktrF',1],)
 
         while dist >= 25:
-            dist_av()
+            #dist_av()
             dist = distance()
             print("Distance = ", dist, "cm")
             time.sleep(0.01)
@@ -240,6 +240,7 @@ def dist_av():
         dist = total/5
         arr_pos += 1
         print("Distance = ", dist, "cm")
+        total = 0
         time.sleep(0.01)
         return dist
             
@@ -262,7 +263,9 @@ def audio_test():
             time.sleep(2) #Test_audio (Tests the playback of audio)
 
 def test():
-        pass
+        while True:
+            dist_av()
+        
 
 def gyro_toggle(int):
         print("Running gyroscope toggle")
@@ -308,7 +311,11 @@ def read_inputs():
                 print("Set speed from 1-3")
                 global speed
                 speed = input()
-                global wait_speed 
+                global wait_speed
+                global arr_pos
+                arr_pos = 0
+                global has_5
+                has_5 = 0
                 wait_speed = 1
                 while wait_speed == 1:
                     if speed == '1' or speed == '2' or speed == '3':
