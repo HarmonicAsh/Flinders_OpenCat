@@ -323,8 +323,8 @@ def init_setup():
         
         
 def read_inputs():
-        global dist_arr
         dist_arr = [0, 0, 0, 0, 0]
+        global dist_arr
         global speed
         global wait_speed
         global arr_pos
