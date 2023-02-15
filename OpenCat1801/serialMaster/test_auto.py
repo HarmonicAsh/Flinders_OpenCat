@@ -220,34 +220,7 @@ def motion():
                 pass
         else:
             direction() #Motion (Starts the cat moving forwards, based on speed setting)
-
-        
-def dist_av():
-        if arr_pos == 5:
-            arr_pos = 0
-        else:
-            pass
-
-        dist_arr[arr_pos] = distance()
-
-        for i in range (5):
-            total += dist_arr[i]
-        
-        dist = total/5
-        arr_pos += 1
-        print("Distance = ", dist, "cm (internal calc)")
-        total = 0
-        time.sleep(0.01)
-        return dist
-
-def prep_arr():
-        dist_arr = [0, 0, 0, 0, 0]
-        for i in range(5):
-            dist_arr[i] = distance()
-            time.sleep(0.1)
-            print("Distance ", i, " = ", dist_arr[i])
-     
-            
+           
 def start_cat():
         send(goodPorts,['d',0],) # rest position and shuts off all servos
         print("\n \n------------------------------------------------------------------")
@@ -271,31 +244,30 @@ def dist_av(int):
         global arr_pos
              
         if int == 0:
-             send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
+            send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
             dist_arr = [0, 0, 0, 0, 0]
             for i in range(5):
                 dist_arr[i] = distance()
                 time.sleep(0.1)
                 print("Distance ", i, " = ", dist_arr[i])
+            print("Array full..")
             arr_pos = 0
             total = 0
         
         elif int == 1:
             total = 0
-            print("Array full..")
             dist_arr[arr_pos] = distance()
-            print("Updated array number")
             for i in range (5):
                 total += dist_arr[i]
-            print("Total calculated..")
             dist = total/5
-            print("Distance = ", dist, "cm (internal calc)")
+            print("Distance = ", dist, "cm")
             time.sleep(0.01)
             arr_pos += 1
             if arr_pos == 5:
                 arr_pos = 0
             else:
                 pass
+            return dist
         else:
             pass
 
