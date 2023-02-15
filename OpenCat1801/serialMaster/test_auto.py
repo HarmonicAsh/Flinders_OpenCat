@@ -275,6 +275,7 @@ def test(int):
                 dist_arr[i] = distance()
                 time.sleep(0.1)
                 print("Distance ", i, " = ", dist_arr[i])
+            arr_pos = 0
              
         if arr_pos == 5:
             arr_pos = 0
