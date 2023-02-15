@@ -6,15 +6,15 @@
 #Use to install Pip3 as req: sudo apt-get -y install python3-pip
 #https://wavlist.com/animals-cats-20-wavs/ cat sounds found here <-
 
-
 import random
 import sys
 import time
+import math
 from pygame import mixer
 sys.path.append("..")
 from ardSerial import *
-from SR04 import *
-
+from SR04 import *      
+         
 def load_sound():
         mixer.init()  #Initialise pigame mixer for audio
         print("Loading sounds...")
@@ -182,9 +182,6 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         os._exit(0) #Nybble_sleep (Puts the cat into a shutdown state)
 
 def motion():
-        global dist_min
-        dist_min = distance()
-        global speed_mod
         gyro_toggle(0)
 
         dist = distance() #Need to add some form of error checking here!
@@ -202,20 +199,30 @@ def motion():
             send(goodPorts,['ktrF',1],)
 
         while dist >= 25:
-            dist = distance()
-            print("Distance = ", dist, "cm")
-            time.sleep(0.01)
-            if dist < dist_min:
-                dist_min = dist
-            else:
-                pass
-           
-            if dist_min < 50 and gyro_status == 0:
-                gyro_toggle(1)
-            else:
-                pass
+            dist_av()
+                        
         else:
             direction() #Motion (Starts the cat moving forwards, based on speed setting)
+
+def dist_av():
+        if has_5 = 0
+            for i in range (5):
+                dist[i] = distance()
+                time.sleep(0.01)
+        
+        if arr_pos == 5:
+            arr_pos = 0
+        else:
+            dist[arr_pos] = distance()
+
+        for i in range (5):
+            total += dist[i]
+        else:
+            pass
+        dist = total/5
+        arr_pos += 1
+        print("Distance = ", dist, "cm")
+        time.sleep(0.01)
             
 def start_cat():
         send(goodPorts,['d',0],) # rest position and shuts off all servos
@@ -236,32 +243,7 @@ def audio_test():
             time.sleep(2) #Test_audio (Tests the playback of audio)
 
 def test():
-        dist = distance() 
-        print("---------------------changing direction---------------------------")
-        send(goodPorts,['ksit',0.5],)  #Sit, then look straight ahead and measure the distance to the obstruction
-        send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
-        print("The obstruction is... ")
-        print(dist, " cm in front")
-        send(goodPorts,['i', [0, 50, 1, -38], 0.5],) #Look left and measure the distance to the obstruction
-        dist_left = distance()
-        print(dist_left, " cm to the left")
-        send(goodPorts,['i', [0, -50, 1, -38], 0.5],) #Look right and measure the distance to the obstruction
-        dist_right = distance()
-        print(dist_right, " cm to the right")
-          
-        if dist_left < dist_right:      #When Nybble should deviate right
-            time_mod = dist_left/dist_right
-            print("Time factor (face right) = ", time_mod)
-                        
-        elif dist_left > dist_right:        #When Nybble should deviate ;eft   
-            time_mod = dist_right/dist_left
-            print("Time factor (face left) = ", time_mod)   
-            
-        else:
-            pass
-        
-        print("------------------------------------------------------------------") 
-        print("Test completed..") #Test function (Runs test from main menu. Replace this with new code to quickly test)
+        pass
 
 def gyro_toggle(int):
         print("Running gyroscope toggle")
@@ -307,7 +289,14 @@ def read_inputs():
                 print("Set speed from 1-3")
                 global speed
                 speed = input()
+                global arr_pos
+                global dist
+                dist = distance()
                 global wait_speed 
+                global has_5
+                global speed_mod
+                arr_pos = 0
+                has_5 = 0
                 wait_speed = 1
                 while wait_speed == 1:
                     if speed == '1' or speed == '2' or speed == '3':
@@ -335,10 +324,7 @@ def read_inputs():
                 print("\nRunning audio test()")
                 audio_test()
                 start_cat()
-
-
-               
-
+  
         elif command == "serial": #allows the input of Petoi serial commands
                 serial_comm = 1
                 while serial_comm == 1:
@@ -371,7 +357,6 @@ if __name__ == '__main__':
         gyro_toggle(3) # switch gyroscope on (begins off), runs startup code
         send(goodPorts,['d',1],) # rest position and shuts off all servos
         send(goodPorts,['z',1],) # disable random behaviour
-        
         start_cat()
         
         while True:
