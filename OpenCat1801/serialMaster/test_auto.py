@@ -182,7 +182,6 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         os._exit(0) #Nybble_sleep (Puts the cat into a shutdown state)
 
 def motion():
-        gyro_toggle(0)
         print("Motion command given..") 
         dist = distance() #Need to add some form of error checking here!
         print("Distance = ", dist)
@@ -201,7 +200,10 @@ def motion():
             send(goodPorts,['ktrF',1],)
 
         while dist >= 25:
-            dist = dist_av()
+            dist = distance()
+            time.sleep(0.01)
+            print("Distance = ", dist, " centimetres")
+            #dist = dist_av()
                         
         else:
             direction() #Motion (Starts the cat moving forwards, based on speed setting)
@@ -221,6 +223,7 @@ def dist_av():
             total += dist_arr[i]
         else:
             pass
+
         dist = total/5
         arr_pos += 1
         print("Distance = ", dist, "cm")
