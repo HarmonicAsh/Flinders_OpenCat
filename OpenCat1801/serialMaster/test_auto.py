@@ -201,7 +201,7 @@ def motion():
             send(goodPorts,['ktrF',1],)
 
         while dist >= 25:
-            dist_av()
+            dist = dist_av()
                         
         else:
             direction() #Motion (Starts the cat moving forwards, based on speed setting)
@@ -209,7 +209,7 @@ def motion():
 def dist_av():
         if has_5 == 0:
             for i in range (5):
-                dist[i] = distance()
+                dist_arr[i] = distance()
                 time.sleep(0.01)
         
         if arr_pos == 5:
@@ -225,6 +225,7 @@ def dist_av():
         arr_pos += 1
         print("Distance = ", dist, "cm")
         time.sleep(0.01)
+        return dist
             
 def start_cat():
         send(goodPorts,['d',0],) # rest position and shuts off all servos
@@ -292,7 +293,6 @@ def read_inputs():
                 global speed
                 speed = input()
                 global arr_pos
-                global dist
                 global has_5
                 global speed_mod
                 arr_pos = 0
