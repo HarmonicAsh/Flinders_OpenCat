@@ -183,8 +183,9 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
 
 def motion():
         gyro_toggle(0)
-
+        print("Motion command given..") 
         dist = distance() #Need to add some form of error checking here!
+
         if speed == "1":
             print("attempting speed 1")
             speed_mod = 2
@@ -296,7 +297,6 @@ def read_inputs():
                 arr_pos = 0
                 has_5 = 0
                 print("Speed ", speed, " selected")
-                dist = distance()
                 motion()  #Start walking forwards and attempt to avoid walls
 
         elif command == "dist": #prints the distance signal of the ultrasonic sensor
