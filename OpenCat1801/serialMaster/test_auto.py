@@ -278,7 +278,7 @@ def dist_av(int):
             arr_pos = 0
             total = 0
         
-        else:
+        elif int == 1:
             print("Array full..")
             dist_arr[arr_pos] = distance()
             for i in range (5):
@@ -293,14 +293,15 @@ def dist_av(int):
                 arr_pos = 0
             else:
                 pass
-        return dist
+        else:
+            pass
 
 
 
 def test(int):
         dist_av(0)
         while True:
-            dist_av()
+            dist_av(1)
             time.sleep(1)
 
         
