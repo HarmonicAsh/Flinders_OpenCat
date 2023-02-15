@@ -222,6 +222,7 @@ def motion():
             direction() #Motion (Starts the cat moving forwards, based on speed setting)
 
 def dist_av():
+        print("Beginning dist_av")
         while len(dist_arr) <=5:
              dist_arr.append(distance())
              time.sleep(0.01)
@@ -231,13 +232,12 @@ def dist_av():
         if arr_pos == 5:
             arr_pos = 0
         else:
-            dist_arr[arr_pos] = distance()
+            pass
+        dist_arr[arr_pos] = distance()
 
         for i in range (5):
             total += dist_arr[i]
-        else:
-            pass
-
+        
         dist = total/5
         arr_pos += 1
         print("Distance = ", dist, "cm")
