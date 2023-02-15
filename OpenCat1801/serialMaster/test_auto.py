@@ -221,6 +221,15 @@ def motion():
         else:
             direction() #Motion (Starts the cat moving forwards, based on speed setting)
 
+        
+def prep_arr():
+        dist_arr = [0, 0, 0, 0, 0]
+        for i in range(5):
+            dist_arr[i] = distance()
+            time.sleep(0.01)
+            print("Distance ", i, " = ", dist_arr[i])
+            arr_pos = 0
+
 def dist_av():
         print("Beginning dist_av")
         while len(dist_arr) <=5:
@@ -264,8 +273,7 @@ def audio_test():
             time.sleep(2) #Test_audio (Tests the playback of audio)
 
 def test():
-        while True:
-            dist_av()
+        prep_arr()
         
 
 def gyro_toggle(int):
