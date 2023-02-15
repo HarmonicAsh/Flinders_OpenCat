@@ -205,7 +205,7 @@ def motion():
             direction() #Motion (Starts the cat moving forwards, based on speed setting)
 
 def dist_av():
-        if has_5 = 0
+        if has_5 == 0:
             for i in range (5):
                 dist[i] = distance()
                 time.sleep(0.01)
@@ -291,19 +291,12 @@ def read_inputs():
                 speed = input()
                 global arr_pos
                 global dist
-                dist = distance()
-                global wait_speed 
                 global has_5
                 global speed_mod
                 arr_pos = 0
                 has_5 = 0
-                wait_speed = 1
-                while wait_speed == 1:
-                    if speed == '1' or speed == '2' or speed == '3':
-                        wait_speed=0
-                    else:
-                        pass
                 print("Speed ", speed, " selected")
+                dist = distance()
                 motion()  #Start walking forwards and attempt to avoid walls
 
         elif command == "dist": #prints the distance signal of the ultrasonic sensor
