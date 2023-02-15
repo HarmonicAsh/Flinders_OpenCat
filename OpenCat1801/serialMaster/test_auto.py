@@ -204,13 +204,13 @@ def motion():
             speed_mod = 0.5
             send(goodPorts,['ktrF',1],)
 
-        dist = dist_av(1)
+        #dist = dist_av(1)
 
         while dist >= 25:
             #dist_av()
-            dist = dist_av(1)
-            #dist = distance()
-            #print("Distance = ", dist, "cm")
+            #dist = dist_av(1)
+            dist = distance()
+            print("Distance = ", dist, "cm")
             time.sleep(0.01)
             if dist < dist_min:
                 dist_min = dist
@@ -243,8 +243,7 @@ def audio_test():
             time.sleep(2) #Test_audio (Tests the playback of audio)
 
 def dist_av(int):
-        
-             
+                    
         if int == 0:
             send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
             dist_arr = [0, 0, 0, 0, 0]
@@ -325,6 +324,7 @@ def init_setup():
         
 def read_inputs():
         global dist_arr
+        dist_arr = [0, 0, 0, 0, 0]
         global speed
         global wait_speed
         global arr_pos
