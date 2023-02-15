@@ -268,6 +268,7 @@ def audio_test():
 
 def dist_av(int):
         global dist_arr
+        global arr_pos
         print(int)
         send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
         if int == 0:
