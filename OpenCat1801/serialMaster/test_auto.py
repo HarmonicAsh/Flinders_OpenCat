@@ -299,6 +299,9 @@ def dist_av(int):
 
 def test(int):
         dist_av(0)
+        while True:
+            dist_av()
+            time.sleep(1)
 
         
         
