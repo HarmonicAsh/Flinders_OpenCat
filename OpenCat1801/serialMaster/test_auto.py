@@ -269,9 +269,9 @@ def audio_test():
 def dist_av(int):
         global dist_arr
         global arr_pos
-        print(int)
-        send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
+             
         if int == 0:
+             send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
             dist_arr = [0, 0, 0, 0, 0]
             for i in range(5):
                 dist_arr[i] = distance()
@@ -305,7 +305,7 @@ def test(int):
         dist_av(0)
         while True:
             dist_av(1)
-            time.sleep(1)
+            time.sleep(0.25)
 
         
         
