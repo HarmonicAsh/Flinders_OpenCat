@@ -273,9 +273,7 @@ def test():
         while True:
             dist = dist_av()
             print("Distance = ", dist, " cm (external)")
-
-        
-        
+  
 
 def gyro_toggle(int):
         print("Running gyroscope toggle")
@@ -310,23 +308,26 @@ def gyro_toggle(int):
                 gyro_status = 0
                 print("Gyroscope deactivated (toggled)") #Gyro_toggle (toggles gyroscope)
      
-  
+ def init_setup():
+        global speed
+        global wait_speed
+        global arr_pos
+        arr_pos = 0
+        global has_filled
+        global dist_arr
+        has_filled = 0
         
-def read_inputs(): 
+        
+def read_inputs:
+        init_setup()
         command = input() #Reads serial inputs
         if command == "go":
                 print("\nGo command recognised... let's go!")
                 send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
                 cat_meow(3)
                 print("Set speed from 1-3")
-                global speed
                 speed = input()
-                global wait_speed
-                global arr_pos
-                arr_pos = 0
-                global has_filled
-                global dist_arr
-                has_filled = 0
+                
                 wait_speed = 1
                 while wait_speed == 1:
                     if speed == '1' or speed == '2' or speed == '3':
