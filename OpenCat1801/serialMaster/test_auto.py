@@ -318,6 +318,7 @@ def gyro_toggle(int):
                 print("Gyroscope deactivated (toggled)") #Gyro_toggle (toggles gyroscope)
      
 def init_setup():
+        pass
         
         
         
