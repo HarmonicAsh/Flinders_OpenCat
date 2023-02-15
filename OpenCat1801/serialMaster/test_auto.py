@@ -267,6 +267,7 @@ def audio_test():
             time.sleep(2) #Test_audio (Tests the playback of audio)
 
 def dist_av(int):
+        global dist_arr
         print(int)
         send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
         if int == 0:
@@ -281,9 +282,10 @@ def dist_av(int):
         elif int == 1:
             print("Array full..")
             dist_arr[arr_pos] = distance()
+            print("Updated array number")
             for i in range (5):
                 total += dist_arr[i]
-        
+            print("Total calculated..")
             dist = total/5
             print("Distance = ", dist, "cm (internal calc)")
             time.sleep(0.01)
