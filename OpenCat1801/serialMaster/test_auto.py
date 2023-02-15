@@ -266,18 +266,16 @@ def audio_test():
             cat_meow(i)
             time.sleep(2) #Test_audio (Tests the playback of audio)
 
-def test():
-        print(has_filled)
+def test(int):
+        print(int)
         send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
-        if has_filled == 0:
+        if int == 0:
             dist_arr = [0, 0, 0, 0, 0]
             for i in range(5):
                 dist_arr[i] = distance()
                 time.sleep(0.1)
                 print("Distance ", i, " = ", dist_arr[i])
-            has_filled =1
-
-
+             
         if arr_pos == 5:
             arr_pos = 0
         else:
@@ -369,7 +367,7 @@ def read_inputs():
 
         elif command == "test": #Runs test() once
                 print("\nRunning test()")
-                test()
+                test(0)
                 start_cat()
 
         elif command == "sound": #Runs test() once
