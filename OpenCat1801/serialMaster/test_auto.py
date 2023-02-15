@@ -276,23 +276,24 @@ def test(int):
                 time.sleep(0.1)
                 print("Distance ", i, " = ", dist_arr[i])
             arr_pos = 0
-             
-        if arr_pos == 5:
-            arr_pos = 0
-        else:
-            pass
-
+            total = 0
+        
+        print("Array full..")
         dist_arr[arr_pos] = distance()
-
         for i in range (5):
             total += dist_arr[i]
         
         dist = total/5
-        arr_pos += 1
+        
         print("Distance = ", dist, "cm (internal calc)")
-        total = 0
+        
         time.sleep(0.01)
-        return dist
+        total = 0
+        arr_pos += 1
+        if arr_pos == 5:
+            arr_pos = 0
+        else:
+            pass
   
 
 def gyro_toggle(int):
