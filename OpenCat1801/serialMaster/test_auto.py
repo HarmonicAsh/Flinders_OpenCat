@@ -6,6 +6,7 @@
 #Use to install Pip3 as req: sudo apt-get -y install python3-pip
 #https://wavlist.com/animals-cats-20-wavs/ cat sounds found here <-
 
+
 import random
 import sys
 import time
@@ -13,7 +14,9 @@ import math
 from pygame import mixer
 sys.path.append("..")
 from ardSerial import *
-from SR04 import *      
+from SR04 import *
+
+            
          
 def load_sound():
         mixer.init()  #Initialise pigame mixer for audio
@@ -182,10 +185,12 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         os._exit(0) #Nybble_sleep (Puts the cat into a shutdown state)
 
 def motion():
-        print("Motion command given..") 
-        dist = distance() #Need to add some form of error checking here!
-        print("Distance = ", dist)
+        global dist_min
+        dist_min = distance()
+        global speed_mod
+        gyro_toggle(0)
 
+        dist = distance() #Need to add some form of error checking here!
         if speed == "1":
             print("attempting speed 1")
             speed_mod = 2
@@ -200,11 +205,19 @@ def motion():
             send(goodPorts,['ktrF',1],)
 
         while dist >= 25:
+            dist_av()
             dist = distance()
+            print("Distance = ", dist, "cm")
             time.sleep(0.01)
-            print("Distance = ", dist, " centimetres")
-            #dist = dist_av()
-                        
+            if dist < dist_min:
+                dist_min = dist
+            else:
+                pass
+           
+            if dist_min < 50 and gyro_status == 0:
+                gyro_toggle(1)
+            else:
+                pass
         else:
             direction() #Motion (Starts the cat moving forwards, based on speed setting)
 
@@ -295,11 +308,13 @@ def read_inputs():
                 print("Set speed from 1-3")
                 global speed
                 speed = input()
-                global arr_pos
-                global has_5
-                global speed_mod
-                arr_pos = 0
-                has_5 = 0
+                global wait_speed 
+                wait_speed = 1
+                while wait_speed == 1:
+                    if speed == '1' or speed == '2' or speed == '3':
+                        wait_speed=0
+                    else:
+                        pass
                 print("Speed ", speed, " selected")
                 motion()  #Start walking forwards and attempt to avoid walls
 
