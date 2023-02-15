@@ -222,15 +222,16 @@ def motion():
             direction() #Motion (Starts the cat moving forwards, based on speed setting)
 
         
-def prep_arr():
-        dist_arr = [0, 0, 0, 0, 0]
-        for i in range(5):
-            dist_arr[i] = distance()
-            time.sleep(0.1)
-            print("Distance ", i, " = ", dist_arr[i])
-            arr_pos = 0
-
 def dist_av():
+        if has_filled == 0:
+            dist_arr = [0, 0, 0, 0, 0]
+            for i in range(5):
+                dist_arr[i] = distance()
+                time.sleep(0.1)
+                print("Distance ", i, " = ", dist_arr[i])
+                arr_pos = 0
+            has_filled = 1
+
         if arr_pos == 5:
             arr_pos = 0
         else:
@@ -243,7 +244,7 @@ def dist_av():
         
         dist = total/5
         arr_pos += 1
-        print("Distance = ", dist, "cm")
+        print("Distance = ", dist, "cm (internal calc)")
         total = 0
         time.sleep(0.01)
         return dist
@@ -270,9 +271,10 @@ def test():
         send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
         prep_arr()
         while True:
-            dist_av()
-        else:
-            pass
+            dist = dist_av()
+            print("Distance = ", dist, " cm (external)")
+
+        
         
 
 def gyro_toggle(int):
@@ -322,9 +324,9 @@ def read_inputs():
                 global wait_speed
                 global arr_pos
                 arr_pos = 0
-                global has_5
+                global has_filled
                 global dist_arr
-                has_5 = 0
+                has_filled = 0
                 wait_speed = 1
                 while wait_speed == 1:
                     if speed == '1' or speed == '2' or speed == '3':
