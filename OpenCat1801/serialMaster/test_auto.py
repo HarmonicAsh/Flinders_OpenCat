@@ -267,12 +267,33 @@ def audio_test():
             time.sleep(2) #Test_audio (Tests the playback of audio)
 
 def test():
+        print(has_filled)
         send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
-        arr_pos = 0
-        prep_arr()
-        while True:
-            dist = dist_av()
-            print("Distance = ", dist, " cm (external)")
+        if has_filled == 0:
+            dist_arr = [0, 0, 0, 0, 0]
+            for i in range(5):
+                dist_arr[i] = distance()
+                time.sleep(0.1)
+                print("Distance ", i, " = ", dist_arr[i])
+            has_filled =1
+
+
+        if arr_pos == 5:
+            arr_pos = 0
+        else:
+            pass
+
+        dist_arr[arr_pos] = distance()
+
+        for i in range (5):
+            total += dist_arr[i]
+        
+        dist = total/5
+        arr_pos += 1
+        print("Distance = ", dist, "cm (internal calc)")
+        total = 0
+        time.sleep(0.01)
+        return dist
   
 
 def gyro_toggle(int):
