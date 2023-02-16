@@ -36,7 +36,7 @@ def direction():
         print("\n---------------------changing direction---------------------------")
         send(goodPorts,['ksit',0.5],)  #Sit, then look straight ahead and measure the distance to the obstruction
         send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
-        dist = distance()
+        dist = dist_av()
         if dist >= 60:
             print("The obstruction appears to have moved...")
             random_behaviour()
@@ -53,7 +53,7 @@ def direction():
             dist_right = distance()
             print(dist_right, " cm to the right")
             send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
-            dist = distance() 
+            dist = dist_av() 
 
         if dist >= 60:
             motion()
@@ -208,7 +208,7 @@ def dist_av():
         for i in range(5):
             total += dist_arr[i]
         dist = total/5
-        print("Distance = ", dist, "cm (av)")
+        print("Distance = ", dist, "cm")
         time.sleep(0.01)
         arr_pos += 1
         if arr_pos == 5:
