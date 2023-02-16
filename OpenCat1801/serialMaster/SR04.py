@@ -12,7 +12,8 @@ SIG = 18 #set GPIO Pin
 def distance():
     GPIO.setup(SIG, GPIO.OUT)
     GPIO.output(SIG, True)
-    time.sleep(0.00001)
+    time.sleep(0.02)
+    #time.sleep(0.00001)
     GPIO.output(SIG, False)
 
     StartTime = time.time()
