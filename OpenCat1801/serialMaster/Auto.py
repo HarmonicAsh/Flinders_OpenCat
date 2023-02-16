@@ -217,9 +217,9 @@ def dist_av():
         
 
 def test(int):
-        dist_init
+        dist_init()
         while True:
-            dist_av
+            dist_av()
             time.sleep(1) #Test (Add code here for simpler testing)   
         
 def gyro_toggle(int):
@@ -268,8 +268,8 @@ def read_inputs():
                 print("Set speed from 1-3")
                 speed = input()
                 print("Speed ", speed, " selected")
-                dist_init
-                dist_adv
+                dist_init()
+                dist_av()
                 motion(dist, speed)  #Start walking forwards and attempt to avoid walls
 
         elif command == "dist": #prints the distance signal of the ultrasonic sensor
@@ -283,7 +283,7 @@ def read_inputs():
 
         elif command == "test": #Runs test() once
                 print("\nRunning test()")
-                test(0)
+                test()
                 start_cat()
 
         elif command == "sound": #Runs test() once
