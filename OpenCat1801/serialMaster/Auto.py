@@ -139,8 +139,10 @@ def Nybble_sleep(): #Shuts down Nybble when the script has finished
         logger.info("finish!")
         os._exit(0) #Nybble_sleep (Puts the cat into a shutdown state)
 
-def motion(dist, speed):
+def motion():
+        global speed
         global speed_mod
+
         if speed == "1":
             print("attempting speed 1")
             speed_mod = 2
@@ -156,7 +158,7 @@ def motion(dist, speed):
 
         dist = dist_av()
 
-        while dist >= 25:
+        while dist >= 20:
             dist = dist_av()
             time.sleep(0.01)            
         else:
@@ -181,12 +183,14 @@ def audio_test():
             print("Testing meow number ", i)
             cat_meow(i)
             time.sleep(2) #Test_audio (Tests the playback of audio)
+
 def dist_init():
         global dist_arr
         global arr_pos
+        dist_arr = [0, 0, 0, 0, 0]
         send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
-        for i in range(5):
-            dist_arr[i] = distance()
+        for x in range(5):
+            dist_arr[x] = distance()
             time.sleep(0.1)
         print("[ ",dist_arr[0]," ",dist_arr[1]," ",dist_arr[2]," ",dist_arr[3]," ",dist_arr[4], " ] ")
         time.sleep(1)
@@ -196,13 +200,12 @@ def dist_init():
         #return dist_add(arr_pos, dist_arr)    #to call:   dist, arr_pos, dist_arr = dist_init(arr_pos,dist_arr)
         #return arr_pos, dist_arr  # to call: arr_pos, 
         
-        
 def dist_av():
         global dist_arr
         global arr_pos
         total = 0
         dist_arr[arr_pos] = distance()
-        for i in range (5):
+        for i in range(5):
             total += dist_arr[i]
         dist = total/5
         print("Distance = ", dist, "cm (av)")
@@ -216,7 +219,7 @@ def dist_av():
        # return dist, arr,pos, dist_arr   # to call:     dist, arr_pos, dist_arr = dist_add(arr_pos,dist_arr)
         
 
-def test(int):
+def test():
         dist_init()
         while True:
             dist_av()
@@ -256,11 +259,10 @@ def gyro_toggle(int):
                 print("Gyroscope deactivated (toggled)") #Gyro_toggle (toggles gyroscope)
             
 def read_inputs():
-        
-        
         command = input() #Reads serial inputs
 
         if command == "go":
+                global speed
                 print("\nGo command recognised... let's go!")
                 send(goodPorts,['kbalance',1],)  #Stand up and wait for 1 second
                 gyro_toggle(1) #Enable gyroscope
@@ -270,7 +272,7 @@ def read_inputs():
                 print("Speed ", speed, " selected")
                 dist_init()
                 dist_av()
-                motion(dist, speed)  #Start walking forwards and attempt to avoid walls
+                motion()  #Start walking forwards and attempt to avoid walls
 
         elif command == "dist": #prints the distance signal of the ultrasonic sensor
                 send(goodPorts,['ksit',0.5],)  #Sit, then look straight ahead and measure the distance to the obstruction
