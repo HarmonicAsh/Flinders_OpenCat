@@ -36,6 +36,7 @@ def direction():
         print("\n---------------------changing direction---------------------------")
         send(goodPorts,['ksit',0.5],)  #Sit, then look straight ahead and measure the distance to the obstruction
         send(goodPorts,['i', [0, 0, 1, -30], 0.5],)
+        time.sleep(0.25)
         dist = distance()
         print("Distance (non-averaged) = ", dist)
         if dist >= 60:
@@ -209,7 +210,7 @@ def dist_av():
             total += dist_arr[i]
         dist = total/5
         print("Distance = ", dist, "cm")
-        time.sleep(0.01)
+        time.sleep(0.0025)
         arr_pos += 1
         if arr_pos == 5:
             arr_pos = 0
