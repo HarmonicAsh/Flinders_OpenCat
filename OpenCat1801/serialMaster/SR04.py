@@ -10,31 +10,27 @@ GPIO.setmode(GPIO.BCM) #GPIO Mode (BOARD / BCM)
 SIG = 18 #set GPIO Pin
 
 def distance():
-    total = 0
-    for x in range(5):
-        GPIO.setup(SIG, GPIO.OUT)
-        GPIO.output(SIG, True)
-        time.sleep(0.002)
-        #time.sleep(0.00001)
-        GPIO.output(SIG, False)
+    GPIO.setup(SIG, GPIO.OUT)
+    GPIO.output(SIG, True)
+    time.sleep(0.02)
+    #time.sleep(0.00001)
+    GPIO.output(SIG, False)
 
+    StartTime = time.time()
+    StopTime = time.time()
+    # save StartTime
+
+    GPIO.setup(SIG, GPIO.IN)
+    while GPIO.input(SIG) == 0:
         StartTime = time.time()
+    # save time of arrival
+    while GPIO.input(SIG) == 1:
         StopTime = time.time()
-        # save StartTime
-
-        GPIO.setup(SIG, GPIO.IN)
-        while GPIO.input(SIG) == 0:
-            StartTime = time.time()
-        # save time of arrival
-        while GPIO.input(SIG) == 1:
-            StopTime = time.time()
-        # time difference between start and arrival
-        TimeElapsed = StopTime - StartTime
-        # multiply with the sonic speed (34300 cm/s)
-        # and divide by 2, because there and back
-        distance = (TimeElapsed * 34300) / 2
-        total += distance
-    distance = total/5
+    # time difference between start and arrival
+    TimeElapsed = StopTime - StartTime
+    # multiply with the sonic speed (34300 cm/s)
+    # and divide by 2, because there and back
+    distance = (TimeElapsed * 34300) / 2
 
     return distance
 
